@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+  <body>
+    <h2>To-Do List</h2>
+
+    <input id="task" placeholder="New task" />
+    <button onclick="addTask()">Add</button>
+    <ul id="list"></ul>
+    <button onclick="clearAll()">Clear All</button>
+    <button onclick="removeLast()">Remove last</button>
+    <button onclick="saveTask()">Save</button>
+    <button onclick="loadTask()">Load</button>
+
+    <script>
+      let tasks = [];
+
+      function displayTask() {
+        let html = "";
+        for (let i = 0; i < tasks.length; i++) {
+          html += `<li id=${i}>${tasks[i]} <button onclick="deleteTask(${i})">delete</button> </li>`;
+        }
+
+        document.getElementById("list").innerHTML = html;
+      }
+
+      function addTask() {
+        const taskValue = document.getElementById("task").value;
+
+        if(taskValue == "") {
+            alert("task is empty")
+            return;
+        }
+
+        tasks.push(taskValue);
+
+        displayTask();
+
+        document.getElementById("task").value = "";
+      }
+
+      function removeLast() {
+        tasks.pop();
+        displayTask();
+      }
+
+      function deleteTask(i) {
+        tasks.splice(i, 1);
+        displayTask();
+      }
+
+      function clearAll() {
+        tasks = [];
+        displayTask();
+      }
+
+      function saveTask() {
+        localStorage.setItem("tasks", tasks);
+      }
+
+      function loadTask() {
+
+        tasks = localStorage.getItem("tasks").split(",");
+        displayTask();
+      }
+
+    </script>
+  </body>
+</html>

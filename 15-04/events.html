@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>events</title>
+</head>
+
+<body>
+
+    <h2>mouse event</h2>
+
+    <p id="click">click</p>
+    <p id="doubleClick">double click</p>
+
+    <p id="hover">hover</p>
+
+    <p id="mouse">mouse down or up</p>
+
+    <h2>keyboard event</h2>
+
+    <input type="text" id="keyboard">
+    <p id="test"></p>
+
+    <p id="time"></p>
+
+    <script>
+
+        // mouse event
+        const click = document.getElementById("click");
+        click.addEventListener("click", () => {
+            click.innerHTML = "mouse clicked"
+        });
+
+        const doubleClick = document.getElementById("doubleClick");
+        doubleClick.addEventListener("dblclick", () => {
+            doubleClick.innerHTML = "mouse doubled clicked"
+        })
+
+        const hover = document.getElementById("hover");
+        hover.addEventListener("mouseover", () => {
+            hover.innerHTML = "mouse over"
+        });
+
+        hover.addEventListener("mouseout", () => {
+            hover.innerHTML = "mouse out"
+        });
+
+        const mouse = document.getElementById("mouse");
+        mouse.addEventListener("mousedown", () => {
+            mouse.innerHTML = "mouse down (mouse key press)"
+        })
+
+        mouse.addEventListener("mouseup", () => {
+            mouse.innerHTML = "mouse up (mouse key realse)"
+        })
+
+        // keyboard event
+        const keyboard = document.getElementById("keyboard")
+
+        keyboard.addEventListener("keypress", (event) => {
+            document.getElementById("test").innerHTML = "key press : " + event.key;
+        })
+
+
+        // timing event
+        const time = document.getElementById("time");
+
+        console.log("before setTimeout");
+        setTimeout(getTime, 1000)
+        console.log("after setTimeout");
+
+        function getTime() {
+            const d = new Date();
+
+            time.innerHTML = d.getHours() + " : " + d.getMinutes()
+        }
+
+    </script>
+
+</body>
+
+</html>

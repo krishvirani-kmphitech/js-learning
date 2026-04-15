@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DOM elements</title>
+</head>
+
+<body>
+  <h2 class="hello">hello world</h2>
+  <h2 id="welcome">welcome !!</h2>
+  <button onclick="changeColor()">change color</button>
+  <button onclick="changeVisibility()">hide welcome</button>
+
+  <p>this is para1</p>
+  <p>this is para2</p>
+
+
+  <!-- form validation using dom -->
+  <form id="userForm">
+    <input type="text" id="username">
+    <button type="submit">submit</button>
+  </form>
+  <p id="userError"></p>
+
+  <script>
+    // getElementById
+    console.log(document.getElementById("welcome")); // this select <h2> welcome
+
+    // getElementsByClassName
+    console.log(document.getElementsByClassName("hello")); // this select <h2> hello world
+
+    // getElementsByTagName
+    console.log(document.getElementsByTagName("p")); // this select <p>
+
+    // CSS query selector
+    console.log(document.querySelector(".hello")); // this select <h2> hello world
+
+    console.log(document.querySelector("#welcome")); // this select <h2> welcome
+
+    // this select multiple element
+    console.log(document.querySelectorAll("p")); // this select <h2> welcome
+
+    // change style color
+    function changeColor() {
+      document.getElementById("welcome").style.color = "red";
+    }
+
+    function changeVisibility() {
+      document.getElementById("welcome").style.visibility = "hidden";
+    }
+
+    // form validation
+    const userForm = document.getElementById("userForm");
+    userForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const isValidUsername = document.forms["userForm"]["username"].value;
+      if (isValidUsername == "") {
+        document.getElementById("userError").innerHTML = "username is required"
+      } else {
+        document.getElementById("userError").innerHTML = ""
+      }
+    })
+
+
+  </script>
+</body>
+
+</html>

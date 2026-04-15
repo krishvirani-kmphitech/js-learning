@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>form validation</title>
+  </head>
+  <body>
+    <form id="userForm">
+      <label for="username">username</label>
+      <input type="text" id="username" />
+      <p id="usernameError" style="color: red"></p>
+      <br />
+
+      <label for="mobile">mobile</label>
+      <input type="text" id="mobile" />
+      <p id="mobileError" style="color: red"></p>
+
+      <label for="email">email</label>
+      <input type="text" id="email" />
+      <p id="emailError" style="color: red"></p>
+
+      <button type="submit">submit</button>
+    </form>
+
+    <script>
+      const userForm = document.getElementById("userForm");
+
+      let isValidUsername = true;
+      let isValidMobile = true;
+      let isValidEmail = true;
+
+      userForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        validateUsername();
+        validateMobile();
+        validateEmail();
+
+        clearForm();
+      });
+
+      function validateUsername() {
+        const username = document.getElementById("username").value;
+        if (username.length < 3) {
+          document.getElementById("usernameError").innerHTML =
+            "username must be greater then 3";
+          isValidUsername = false;
+        } else {
+          document.getElementById("usernameError").innerHTML = "";
+          isValidUsername = true;
+        }
+
+        return;
+      }
+
+      function validateMobile() {
+        const mobile = document.getElementById("mobile").value;
+        if (mobile.length !== 3) {
+          document.getElementById("mobileError").innerHTML =
+            "mobile must be 3 digit";
+          isValidMobile = false;
+        } else {
+          document.getElementById("mobileError").innerHTML = "";
+          isValidMobile = true;
+        }
+
+        return;
+      }
+
+      function validateEmail() {
+        const email = document.getElementById("email").value;
+
+        if (/.[@].\../.test(email)) {
+          document.getElementById("emailError").innerHTML = "";
+          isValidEmail = true;
+          return;
+        }
+        document.getElementById("emailError").innerHTML = "email is not valid";
+        isValidEmail = false;
+        return;
+      }
+
+      function clearForm() {
+        if (isValidUsername && isValidMobile && isValidEmail) {
+          document.getElementById("usernameError").innerHTML = "";
+          document.getElementById("mobileError").innerHTML = "";
+          document.getElementById("emailError").innerHTML = "";
+        }
+        return;
+      }
+    </script>
+  </body>
+</html>
