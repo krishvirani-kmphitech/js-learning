@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>callback function</title>
+  </head>
+  <body>
+    <script>
+      // NOTES: callback means function that passed as argument into another function
+
+      // example 1 ------------------------------------------
+      function greet(name, callback) {
+        console.log("hello " + name);
+
+        callback();
+      }
+
+      function sayBye() {
+        console.log("bye bye");
+      }
+
+      // here we pass one function as argument to another function thats called callback
+      //   greet("amit", sayBye);
+
+      // here we also pass one function as argument to anthoer function
+      //   greet("amit", function () {
+      //     console.log("Good morning");
+      //   });
+
+      //   example 2 ------------------------------------------
+      setTimeout(() => {
+        console.log("time up");
+      }, 2000);
+      //   here we also pass callback function. when timer complate then callback function run immediately.
+
+      //   example 3 ------------------------------------------
+      function fetchData(callback) {
+        setTimeout(() => {
+          let data = "User data";
+          callback(data);
+        }, 2000);
+      }
+
+      function printData(data) {
+        console.log(data);
+      }
+
+      //   fetchData(printData)
+
+      //   example 4 ------------------------------------------
+
+      function callBackHell() {
+        setTimeout(() => {
+          setTimeout(() => {
+            setTimeout(() => {
+              console.log("step 3");
+            }, 1000);
+
+            console.log("step 2");
+          }, 1000);
+
+          console.log("step 1");
+        }, 1000);
+      }
+
+      //   callBackHell();
+
+      //   example 5 ------------------------------------------
+
+      const arr = [10,20,30,40];
+      arr.forEach(ele => console.log(ele));
+
+
+    //   NOTES: callback is simple function that passed as argument
+
+    </script>
+  </body>
+</html>

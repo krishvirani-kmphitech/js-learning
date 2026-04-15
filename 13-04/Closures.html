@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Closures</title>
+  </head>
+  <body>
+    <script>
+      // NOTES:  here on every call of fn() count increes becase outer() function end and this return inner function to fn and now inner() function still have access of count variable so that when we call fn() then count variable increes.
+
+      //   but there are one thing also that on call fn() count is increes but we can't access count variable directly
+
+      //   ADVANTAGES :
+      //    1. Data privacy
+      //    2. Maintain state - this can;t forget variable value on function call
+      //    3. callback and async code - in setTimeout, promise are used closures
+
+      // closures function "remember and access" thier outer scope even after ending of outer
+
+      // exmaple 1
+      console.log("----------- example 2 --------------");
+
+      function outer() {
+        let count = 0;
+
+        function inner() {
+          count++;
+          //   document.write(count + "</br>");
+          console.log(count);
+        }
+
+        return inner;
+      }
+
+      const fn = outer();
+
+      fn();
+      fn();
+      fn();
+
+      //   example 2
+      console.log("----------- example 2 --------------");
+
+      function multiple(x) {
+        return function (y) {
+          console.log(x * y);
+        };
+      }
+
+      const double = multiple(2); // here in this function x = 2 set
+      double(5); // here 5 set to y and then make like (x * y) = (2 * 5)
+
+      const triple = multiple(3);
+      triple(5);
+
+      //   example 3
+      console.log("----------- example 3 --------------");
+
+      function sayHello(name) {
+        //   setTimeout(() => {
+        //     console.log("Hello " + name);
+        //   }, 2000);
+
+        console.log("sayHello function end");
+      }
+
+      sayHello("Amit");
+
+      //   example 4
+      console.log("----------- example 4 --------------");
+
+      function bankAccount() {
+        let balance = 1000;
+
+        return {
+          addBalance(amount) {
+            balance += amount;
+            console.log("Updated balance : " + balance);
+          },
+          showBalance(amount) {
+            console.log("current balance : " + balance);
+          },
+        };
+      }
+
+      let account = bankAccount();
+
+      account.showBalance(); // showBalance() function access balance variable
+      account.addBalance(1000); // addBalance() function also access balance variable
+
+      console.log(account.balance); // but we can't access balance directly from account
+
+      // NOTES : balance is not directly access from account thats why closures is used for data privacy
+
+      //   example 5
+      console.log("----------- example 5 --------------");
+
+      function createFunctions() {
+        let arr = [];
+
+        for (let i = 0; i < 3; i++) {
+          arr.push(function () {
+            return i;
+          }); // here this push method push a function in array that return value of i.
+        }
+
+        return arr;
+      }
+
+      const funs = createFunctions();
+
+      console.log(funs[0]());
+      console.log(funs[1]());
+      console.log(funs[2]());
+
+      //   NOTES : here this createFunctions() return an array and this array's each element is a function that push in loop.
+
+      //   example 6
+      console.log("----------- example 6 --------------");
+
+      function logOnes() {
+        let success = false;
+
+        return function () {
+          if (!success) {
+            success = true;
+            console.log("Success true");
+          } else {
+            console.log("success false");
+          }
+        };
+      }
+
+      const checkLog = logOnes();
+
+      checkLog(); // here success true run
+      checkLog(); // after that success false run
+      checkLog(); // after that success false run
+      checkLog(); // after that success false run
+
+      //   because one first call success variable become true and after that success never become false.
+    </script>
+  </body>
+</html>

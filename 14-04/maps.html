@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>maps</title>
+  </head>
+  <body>
+    <script>
+      // NOTES: maps is built in object in js that store values in key value pair. and also one thing that key can be any type of data not only string, here key should be in number also.
+      //    - map does't change order value key value pair
+      //    - typeof map is object
+
+      // define maps with values
+      const mobile = new Map([
+        ["ram", "16 GB"],
+        ["rom", "128 GB"],
+      ]);
+      console.log(mobile);
+
+      // define maps without value
+      const user = new Map();
+
+      // initialize values in map using set()
+      user.set("name", "amit");
+      user.set("age", 29);
+
+      // access value of map using get()
+      console.log(user.get("name"));
+      console.log(user.get("age"));
+
+      // check key exist in map. NOTES: this can only check keys not value
+      console.log(user.has("name"));
+      // output: true
+
+      console.log(user.has("amit"));
+      // output: false
+
+      // delete key
+      user.delete("age");
+      console.log(user.get("age"));
+      // output: undefine
+
+      // clear all keys from maps
+      user.set("city", "surat");
+      console.log(user.get("city"));
+
+      user.clear(); // here this delete all value of maps
+
+      console.log(user.get("name"));
+      console.log(user.get("city"));
+
+      // find length of map - length method not work in map we need to size
+      console.log(user.size);
+
+      user.set("name", "krish");
+      user.set("city", "surat");
+
+      console.log(user.size);
+
+      // iterble in maps
+      const item = new Map();
+      item.set("name", "earphone");
+      item.set("price", 900);
+      item.set("qty", 23);
+
+      // for(let ele of item) {
+      //     console.log(ele); // here print key and value both
+      // }
+
+      // used of keys() in map
+      for (let key of item.keys()) {
+        console.log(key);
+      }
+      // output: name, price, qty
+
+      // used of values() in map
+      for (let value of item.values()) {
+        console.log(value);
+      }
+      // output : earphone, 900, 23
+
+      // used of entries() in map
+      for (let [key, value] of item.entries()) {
+        console.log(key + " : " + value);
+      }
+      // output:
+      //     name: earphone
+      //     price: 900
+      //     qty: 23
+    </script>
+  </body>
+</html>

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Date method</title>
+  </head>
+  <body>
+    <script>
+      let a = new Date(); //day month dd yyyy hour:min:sec timestamp
+      document.write("A : " + a);
+
+      let b = new Date("2026-04-13"); //day month dd yyyy hour:min:sec timestamp
+      document.write("</br></br>B : " + b);
+
+      // NOTES: 0 = january and 11 = decemeber
+      let c = new Date(2022, 11, 2); //get specific date with argument yyyy, mm, dd
+      document.write("</br></br>C : " + c);
+
+      let d = new Date(2022, 11, 2, 10, 46); //get specifc date and time with argument yyyy, mm, dd, hour, min
+      document.write("</br></br>D : " + d);
+
+      let e = new Date(2024, 2); // this by defual pick date = 1
+      document.write("</br></br>E : " + e);
+
+      let f = new Date(2025); // we can't send only year js treat this as milisencond
+      document.write("</br></br>F : " + f);
+
+      // Dates in milisecond
+
+      document.write("</br></br>---------------------------------------------");
+
+      //NOTES : 0 means 01 january 1970 05:30
+      let zeroMilisecond = new Date(0);
+      document.write("</br></br>Zero milisecond : " + zeroMilisecond);
+
+      let a1 = new Date(100000000000); // here this miliseond add in 01 january 1970
+      document.write("</br></br>A1 : " + a1);
+
+      let b1 = new Date(-100000000000); // here this miliseond minus in 01 january 1970
+      document.write("</br></br>B1 : " + b1);
+
+      let c1 = new Date(24 * 60 * 60 * 1000); // here this 24 hours add in 01 january 1970
+      document.write("</br></br> C1 : " + c1);
+
+      document.write(
+        "</br></br>---------------------------------------------</br></br>",
+      );
+
+      // NOTES : when we get data js by defualt give us data in string formate using toString()
+
+      var date = new Date();
+      document.write(date.toString()); // with toString() method
+      document.write("</br>" + date); //  without toString() method
+
+      document.write("</br></br>toDataString() : " + date.toDateString()); // toDateString() method give date in more readable formate
+
+      document.write("</br></br>toUTCString() : " + date.toUTCString());
+
+      document.write("</br></br>toISOString() : " + date.toISOString());
+
+      document.write(
+        "</br></br>--------------------- Get Method ------------------------</br></br>",
+      );
+
+      document.write("DATE : " + date);
+      document.write("</br></br>getFullYear() : " + date.getFullYear());
+      document.write("</br></br>getMonth() : " + date.getMonth());
+      document.write("</br></br>getDate() : " + date.getDate()); // this give month day 1-31
+      document.write("</br></br>getDay() : " + date.getDay()); // this give week day 0-6
+      document.write("</br></br>getHours() : " + date.getHours()); // 0-23
+      document.write("</br></br>getMiniutes() : " + date.getMinutes()); // 0-59
+      document.write("</br></br>getSeconds() : " + date.getSeconds()); // 0-59
+      document.write("</br></br>getMilliseconds() : " + date.getMilliseconds()); //0-999
+      document.write("</br></br>getTime() : " + date.getTime()); // this return millisecond
+
+
+      document.write(
+        "</br></br>--------------------- Set Method ------------------------</br></br>",
+      );
+
+
+    </script>
+  </body>
+</html>

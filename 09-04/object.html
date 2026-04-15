@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Object</title>
+  </head>
+  <body>
+    <script>
+      // neasted object
+      const myObj = {
+        name: "John",
+        age: 30,
+        myCars: {
+          car1: "Ford",
+          car2: "BMW",
+          car3: "Fiat",
+        },
+      };
+      //   access the neasted object like this
+      //   console.log(myObj.name)
+      //   console.log(myObj.age)
+      //   console.log(myObj.myCars)
+      //   console.log(myObj.myCars.car2)
+
+      //   object methods
+      const person = {
+        firstName: "amit",
+        lastName: "patel",
+        age: 50,
+        fullName: function () {
+          return this.firstName + " " + this.lastName;
+        },
+      };
+
+      //   console.log(person.firstName);
+      //   console.log(person.fullName()); //here this return funtion value
+      //   console.log(person.fullName); //here this return funtion
+
+      // print object value
+
+      const user = {
+        name: "amit",
+        age: 30,
+        city: "Suart",
+      };
+
+      //   print all key and value
+      for (let key in user) {
+        console.log(key + " : " + user[key]);
+      }
+
+      //   anothor method
+      for (let [key, value] of Object.entries(user)) {
+        console.log(key + " : " + value);
+      }
+
+      console.log(JSON.stringify(user))
+
+    </script>
+  </body>
+</html>

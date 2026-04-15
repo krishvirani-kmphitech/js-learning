@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button onclick="sayhi()">click</button>
+
+    <h2 id="output"></h2>
+    <h2 id="result"></h2>
+
+    <script>
+      function sayhi() {
+        alert("okk");
+      }
+      //  document.write(Boolean(100) + "<br/>");
+      //       document.write(Boolean(0) + "<br/>");
+      //       document.write(Boolean("") + "<br/>");
+      //       document.write(Boolean("Hi") + "<br/>");
+      //       document.write(Boolean(null) + "<br/>");
+
+      // let date = new Date();
+      // document.write( date + "</br>")
+      // let numberDate = date.getTime();
+      // document.write("The Numeric date is: " + numberDate + "<br/>");
+      // let dateString = date.toString();
+      // document.write("The string date is: " + dateString + "<br/>");
+
+      // let output = document.getElementById("output");
+      // let a = 5;
+      // let ans = ((a = 8), a++, (a += 2));
+      // output.innerHTML = "The value of the ans variable is: " + ans;
+
+      // let output = document.getElementById("output");
+      // function first() {
+      //   output.innerHTML += "The first function is called! <br/>";
+      //   return 1;
+      // }
+
+      // function second() {
+      //   output.innerHTML += "The second function is called! <br/>";
+      //   return 2;
+      // }
+
+      // let ans = (first(), second());
+      // output.innerHTML += "The value of the ans variable is: " + ans;
+
+      // function sum(a, ...nums) {
+      //   let sum = a;
+      //   for (let i = 0; i < nums.length; i++) {
+      //     sum += nums[i];
+      //   }
+      //   document.getElementById("result").innerHTML = sum;
+      // }
+
+      const add = new Function(
+	  "const sum = function (a, b) {return  a+ b}; return sum",
+	  )();    
+      document.getElementById("output").innerHTML = add(5,10) // 15
+   </script>
+
+    </script>
+  </body>
+</html>

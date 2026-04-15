@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loops</title>
+  </head>
+  <body>
+    <script>
+      // example : for loop
+      function forLoop() {
+        for (let i = 0; i < 10; i++) {
+          if (i % 3 == 0) {
+            continue;
+          }
+          console.log(i);
+        }
+      }
+
+      //   forLoop();
+
+      //   example : while loop
+      function whileLoop() {
+        let i = 0;
+        let sum = 0;
+        while (i < 10) {
+          sum += i;
+          i++;
+        }
+        console.log(sum);
+      }
+
+      //   whileLoop();
+
+      //   example : do while loop
+      function doWhileLoop() {
+        let i = 0;
+        do {
+          console.log(i);
+          i++;
+        } while (i < 10);
+      }
+
+      //   doWhileLoop();
+
+      //   example for in loop
+      function forInLoop() {
+        const student = {
+          name: "Ravi",
+          age: 20,
+          marks: 85,
+        };
+
+        for (let i in student) {
+          console.log(i + " : " + student[i]);
+        }
+      }
+
+      // forInLoop();
+
+      // example for of
+
+      function forOfLoop() {
+        const fruits = ["apple", "banana", "mango"];
+
+        for (let fruit of fruits) {
+          console.log(fruit);
+        }
+      }
+
+      // forOfLoop()
+
+      // example of forEach
+
+      function forEachLoop() {
+        const arr = [10, 20, 30, 40];
+
+        arr.forEach((ele) => {
+          console.log(ele);
+        });
+      }
+
+      // forEachLoop();
+
+      // example
+
+      function test1() {
+        const users = [
+          { name: "Amit", scores: [80, 90, 70] },
+          { name: "Neha", scores: [60, 75, 85] },
+        ];
+        for (let user of users) {
+          let tot = 0;
+          user.scores.forEach((score) => (tot += score));
+          // console.log(tot)
+          console.log(
+            "name : " + user.name + " " + "Avg mark : " + (tot / 3).toFixed(2),
+          );
+        }
+      }
+
+      test1();
+    </script>
+  </body>
+</html>

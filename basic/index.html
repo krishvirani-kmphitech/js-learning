@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=`, initial-scale=1.0" />
+    <title>basic</title>
+  </head>
+  <body>
+    <script>
+      // function persone(name, age) {
+      //   ((this.name = name),
+      //     (this.age = age),
+      //     (this.changeAge = function (age) {
+      //       this.age = age;
+      //     }));
+      // }
+      // persone.prototype.changeName = function (name) {
+      //   this.name = name;
+      // };
+
+      // const p1 = new persone("krish", 20);
+      // p1.changeAge(20);
+      // p1.changeName("amit")
+
+      // const obj1 = {
+      //   name: "krish",
+      //   age: 21,
+      //   changeName: function(name) {
+      //     this.name = name
+      //   }
+      // }
+
+      // obj1.changeAge = function(age) {
+      //   this.age = age
+      // }
+
+      // obj1.changeName("mohit");
+      // obj1.changeAge(23);
+      // document.write(obj1.age);
+
+      // const arr1 = new Array(1,2,3,);
+
+      // const myObj = {
+      //   name: "John",
+      //   age: 30,
+      //   cars: [
+      //     { name: "Ford", models: ["Fiesta", "Focus", "Mustang"] },
+      //     { name: "BMW", models: ["320", "X3", "X5"] },
+      //     { name: "Fiat", models: ["500", "Panda"] },
+      //   ],
+      // };
+
+      // for(let i in myObj.cars) {
+
+      //   document.write(myObj.cars[i].name);
+      // }
+
+      // const arr1 = [
+      //   [1, 2, 3],
+      //   [4, 5, 6],
+      // ];
+
+      // const arr2 = arr1.flat();
+
+      // const arr3 = [11,22,33,44,55,66]
+
+      // document.write(arr3.copyWithin(2, 3,6));
+      // document.write(arr2);
+
+      // let arr1 = [1, 2, 3, 4, 5, 6];
+
+      // const arr2 = arr1.toSpliced(2, 1);
+
+      // document.write(arr1);
+      // document.write(typeof arr1[2]);
+
+      // let arr1 = [1,2,3,43, 89];
+      // const result = arr1.findLast((num, index) => {
+      //     return num > 20;
+      // })
+
+      // let arr = ['aa', 'dd', 'ww', 'cc', 'dd'];
+
+      // document.write(arr.toSorted().reverse() + "</br>")
+      // document.write(arr)
+
+      // let arr = [[3, 2], [5, 4], 1];
+
+      // // arr.forEach((num, index) => document.write(`${index} : ${num} </br>`))
+
+      // const result = arr.reduce((acc, num) => acc.concat(num) , []);
+
+
+      const arr = ["apple", "banana", "cherry"];
+
+      const arr2 = [1,2,3]
+
+      const newArr = [...arr, ...arr2];
+    
+      document.write(newArr)
+
+    </script>
+  </body>
+</html>

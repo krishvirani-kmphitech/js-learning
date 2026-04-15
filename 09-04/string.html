@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String methods</title>
+</head>
+
+<body>
+
+
+    <script>
+
+        // 1. length - batata hai string me total kitne characters hai
+        var str = "Hello";
+        console.log(str.length);
+
+        let msg = "Hello World";
+        console.log(msg.length);
+
+
+        let password = "abc123";
+
+        if (password.length < 8) {
+            console.log("Password too short");
+        }
+
+        // 2. charAt - string ke kisi specific position (index) par ka character return karta hai
+
+        var str = "Krish";
+
+        console.log(str.charAt(0)); // K
+        console.log(str.charAt(2)); // i
+
+
+        var name = "krish";
+
+        var result = name.charAt(0).toUpperCase() + name.slice(1);
+        console.log(result); // Krish
+
+        // 3. charCodeAt - kisi character ka Unicode return karta hai
+
+        var str = "ABC";
+
+        console.log(str.charCodeAt(0)); // 65
+        console.log(str.charCodeAt(1)); // 66
+        console.log(str.charCodeAt(2)); // 67
+
+        // 4. codePointAt() - character ka Unicode code point return karta hai. but this better for special charaters
+
+        var str = "A";
+
+        console.log(str.codePointAt(0)); // 65
+
+        let emoji = "😊";
+
+        console.log(emoji.codePointAt(0)); // 128522
+
+        // 5. concat() - ka use do ya zyada strings ko combine ke liye hota hai.
+
+        var first = "Hello";
+        var second = "World";
+
+        var result = first.concat(" ", second);
+        console.log(result); // Hello World
+
+
+        var name = "krish";
+        var mailTemp = "gmail.com"
+
+        var gmail = name.concat("@", mailTemp);
+        console.log(gmail); // krish@gmail.com
+
+        // 6. at() kisi position ka character return karta hai
+        var str = "Krish";
+
+        console.log(str.at(0));   // K
+        console.log(str.at(2));   // i
+
+        var str = "Hello";
+
+        console.log(str.at(-1));  // o - last character
+        console.log(str.at(-2));  // l
+
+        // 7. slice(start, end) - String ka part nikalne ke liye use hota hai.
+
+        var str = "JavaScript";
+
+        console.log(str.slice(2)); // vaScript
+        console.log(str.slice(0, 4));  // Java
+        console.log(str.slice(4, 10)); // Script
+
+        // 8. substring(start, end) - String ka part nikalta hai
+
+        var str = "JavaScript";
+
+        console.log(str.substring(0, 4));  // Java
+        console.log(str.substring(4, 10)); // Script
+
+        // 9. substr(start, length) - Start position se fixed length ka substring nikalta hai.
+
+        var str = "JavaScript";
+
+        console.log(str.substr(0, 4)); // Java
+        console.log(str.substr(4, 6)); // Script
+
+        var str = "Hello";
+
+        console.log(str.substr(1, 3)); // ell
+
+        // 10. toUpperCase() - String ke saare characters ko uppercase me convert karta hai.
+
+        var str = "hello";
+
+        console.log(str.toUpperCase()); // HELLO
+
+        // 11. toLowerCase() - String ke saare characters ko lowercase me convert karta hai.
+
+        var str = "HELLO";
+
+        console.log(str.toLowerCase()); // hello
+
+        // 12. isWellFormed() - Check karta hai ki string valid Unicode (well-formed UTF-16) hai ya nahi.
+
+        var str = "Hello";
+
+        console.log(str.isWellFormed()); // true
+
+        // 13. toWellFormed() - Invalid Unicode (broken characters) ko fix karke valid string return karta hai.
+
+        var str = "Hello";
+
+        console.log(str.toWellFormed()); // Hello
+
+        var str = "\uD800"; // broken surrogate
+
+        console.log(str.toWellFormed()); // �
+
+        // 14. trim(), trimStart(), trimEnd() - String ke extra spaces remove karne ke liye use hote hain.
+
+        var str = "   Hello World   ";
+
+        console.log(str.trim()); // "Hello World"
+
+        var str = "   Hello";
+
+        console.log(str.trimStart()); // "Hello"
+
+        // 15. padStart() - String ke start (left side) me extra characters add karta hai jab tak total length targetLength na ho jaye.
+
+        var str = "5";
+
+        console.log(str.padStart(3, "0")); // "005"
+
+        var str = "Hi";
+
+        console.log(str.padStart(5, "*")); // "***Hi"
+
+        // 16. repeat(count) - Jo string hai usko count baar duplicate karke ek nayi string banata hai.
+
+        var str = "Hi ";
+
+        console.log(str.repeat(3)); // "Hi Hi Hi "
+
+        let star = "*";
+
+        console.log(star.repeat(5)); // "*****"
+
+        // 17. replace(searchValue, newValue) - String me kisi value ko replace karta hai
+
+        var str = "Hello World";
+
+        console.log(str.replace("World", "Krish"));
+        // Hello Krish
+
+        var str = "apple apple apple";
+
+        console.log(str.replace("apple", "mango"));
+        // mango apple apple
+
+        // to change all
+        var str = "apple apple apple";
+
+        console.log(str.replace(/apple/g, "mango"));
+        // mango mango mango
+
+        // ignore case
+        var str = "Hello";
+
+        console.log(str.replace(/hello/i, "Hi"));
+        // Hi
+
+        // 18. replaceAll() - String me sabhi occurrences ko replace karta hai
+
+        var str = "apple apple apple";
+
+        console.log(str.replaceAll("apple", "mango"));
+        // mango mango mango
+
+
+        var str = "a-b-c-d";
+
+        console.log(str.replaceAll("-", ""));
+        // abcd
+
+        var str = "Hello hello HELLO";
+
+        console.log(str.replaceAll(/hello/gi, "Hi"));
+        // Hi Hi Hi
+
+        // 19. split() - String ko array me convert karta hai by splitting using a separator. 
+
+        // Q1
+        var str = "a,b,c";
+
+        console.log(str.split(","));
+        // ["a", "b", "c"]
+
+        // Q2
+        var str = "a,b,c,d";
+
+        console.log(str.split(",", 2));
+        // ["a", "b"]
+
+        // Q3
+        var str = "Hello";
+
+        console.log(str.split(","));
+        // ["Hello"]
+
+        // 20. indexOf() - String me kisi value ka first occurrence ka index return karta hai.
+
+        var str = "Hello World";
+
+        console.log(str.indexOf("World")); // 6
+
+        var str = "banana";
+
+        console.log(str.indexOf("a")); // 1 (first 'a')
+
+        // 21. lastIndexOf() - String me kisi value ka last occurrence ka index return karta hai.
+
+        var str = "banana";
+
+        console.log(str.lastIndexOf("a")); // 5
+
+        var str = "Hello Hello";
+
+        console.log(str.lastIndexOf("Hello")); // 6
+
+        // 22. search() - String me pattern (regex) search karta hai aur first match ka index return karta hai.
+
+        var str = "Hello World";
+
+        console.log(str.search("World")); // 6
+
+        var str = "Hello World";
+
+        console.log(str.search(/world/i)); // 6 (case-insensitive)
+
+        // 23. match() - String me pattern (regex) match karke matched values return karta hai.
+
+        // this give only first value
+        var str = "Hello 123";
+
+        console.log(str.match(/\d/));
+        // ["1"] → first digit match
+
+        // this give all value
+        var str = "Hello 123";
+
+        console.log(str.match(/\d/g));
+        // ["1", "2", "3"]
+
+        // 24. matchAll() - String me sab matches (with details) return karta hai as an iterator.
+
+        var str = "test1 test2";
+
+        var result = str.matchAll(/\d/g);
+
+        for (let match of result) {
+            console.log(match);
+        }
+
+        // 25. includes() - Check karta hai ki string me koi value exist karti hai ya nahi.
+
+        var str = "Hello World";
+
+        console.log(str.includes("World")); // true
+
+        var str = "JavaScript";
+
+        console.log(str.includes("Java")); // true
+        console.log(str.includes("java")); // false (case-sensitive)
+
+        // 26. startsWith() - Check karta hai ki string given value se start hoti hai ya nahi.
+
+        var str = "Hello World";
+
+        console.log(str.startsWith("Hello")); // true
+        console.log(str.startsWith("World")); // false
+
+
+        var str = "banana";
+
+        console.log(str.startsWith("ban")); //true
+        console.log(str.startsWith("ana", 1)); //true
+
+        // 27. endsWith() - Check karta hai ki string given value se end hoti hai ya nahi.
+
+        var str = "Hello World";
+
+        console.log(str.endsWith("World")); // true
+        console.log(str.endsWith("Hello")); // false
+
+    </script>
+
+</body>
+
+</html>

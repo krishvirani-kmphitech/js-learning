@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>history api</title>
+</head>
+<body>
+    
+    <button onclick="goForward()">forward</button>
+    <button onclick="goBackward()">back</button>
+
+    <button onclick="changeUrl()">chnage url</button>
+
+    <a href="./index.html">go next</a>
+
+    <script>
+        function goForward() {
+            history.forward();
+        }
+
+        function goBackward() {
+            history.back();
+        }
+
+        function changeUrl() {
+            history.pushState({page: 1}, "history api", "history api page")
+        }
+
+    </script>
+
+</body>
+</html>

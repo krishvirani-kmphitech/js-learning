@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>class</title>
+  </head>
+  <body>
+    <p id="output"></p>
+
+    <script>
+      class car {
+        constructor(name, price) {
+          this.name = name;
+          this.price = price;
+        }
+
+        updatePrice(price) {
+          this.price = price;
+        }
+      }
+
+      car1 = new car("audi", 10000);
+
+      const output = document.getElementById("output");
+
+      output.innerHTML += `this car name : ${car1.name} </br> price : ${car1.price}`;
+
+      car1.updatePrice(1200);
+
+      output.innerHTML += `new price : ${car1.price}`;
+      
+      delete car1.price
+      
+      output.innerHTML += `new price : ${car1.price}`;
+
+    </script>
+  </body>
+</html>

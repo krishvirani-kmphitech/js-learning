@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stricy Mode</title>
+  </head>
+  <body>
+    <script>
+      //   without strict mode
+      function printA() {
+        a = "hello A";
+        document.write(a);
+      }
+    </script>
+
+    <script>
+      "use strict";
+
+      //   with strict mode
+      function printB() {
+        b = "hello B";
+        document.write(b);
+      }
+
+      printA();
+      printB();
+
+      let num = 010; // ocatal values are not allowed in strict mode
+
+      // NOTE: this keyword work diffrentaly in strict mode. this keyword refer to object that call function
+
+      function thisKey() {
+        document.write(this);
+      }
+
+      thisKey();
+      
+    </script>
+  </body>
+</html>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // NOTES : var support hoisting but let and const not support hoisting, one thing that function also hoisted but only normal function not Function Expression
+
+      // // var support hoisting
+      // num = 10;
+      // console.log(num); // here this console num's value
+
+      // var num;
+
+      // // let and const not support hoisting
+      // num1 = 11; // but here this give ReferenceError
+      // num2 = 11; // but here this give ReferenceError
+      // console.log(num1);
+      // console.log(num2);
+
+      // example 1
+      var x = 10;
+
+      function test() {
+        console.log(x);
+        var x = 20;
+      }
+
+      test();
+      // output : undefined
+
+      // example 2
+      function hoisting1() {
+        test1(); // here function call successfully
+        function test1() {
+          console.log("tes1 run");
+        }
+
+        test2(); // but here this give reference, error function call not work
+        const test2 = function () {
+          console.log("test2 run");
+        };
+
+        let num1;
+        let num2;
+      }
+
+      // hoisting1();
+
+      // example 3
+      function hoisting2() {
+        for (var i = 0; i < 3; i++) {
+          setTimeout(() => console.log(i), 0);
+        }
+      }
+
+      // hoisting2();
+      // output: 3, 3, 3 here i hoisted in function so that this return 3, 3, 3
+
+      function hoisting3() {
+        for (let i = 0; i < 3; i++) {
+          setTimeout(() => console.log(i), 0);
+        }
+      }
+
+      // hoisting3();
+      // output: 1, 2, 3 becuase here each block have differnt i
+    </script>
+  </body>
+</html>

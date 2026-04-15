@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>functions</title>
+  </head>
+  <body>
+    <script>
+      // NOTES : Parameters are the names listed in the function definition.
+      // NOTES : Arguments are the real values passed to, and received by the function.
+
+      // function define
+      function sayHello() {
+        console.log("hello!!");
+      }
+
+      // function calling
+      sayHello();
+
+      //   ----------------------------------------------
+
+      // function with parameter
+      function sum(a, b) {
+        console.log(a + b);
+      }
+
+      //   function calling with argument
+      sum(2, 4);
+
+      // -------------------------------------------------
+
+      //   function with defualt parameter
+      function welcome(name = "guest") {
+        console.log("welcome " + name);
+      }
+
+      // function call without argument
+      welcome();
+
+      //   function call with argument
+      welcome("abc");
+
+      //   ------------------------------------------------
+
+      //   function expression
+      const multiple = function (x, y) {
+        console.log(x * y);
+      };
+
+      multiple(10, 2);
+
+      //    -------------------------------------------------
+
+      //   arrow function
+      const greet = () => {
+        console.log("hello!!");
+      };
+
+      greet();
+
+      // -----------------------------------------------------
+
+      //   arrow function
+      const square = (x) => x * x;
+
+      console.log(square(3))
+      console.log(square(6))
+
+    </script>
+  </body>
+</html>

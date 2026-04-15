@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>arrays method</title>
+</head>
+
+<body>
+
+    <script>
+
+        // 1. length method thats give length of array
+        var arr = [10, 20, 30, 40]
+        console.log(arr.length)
+
+        // 2. toString() method convert array to string
+        console.log(arr.toString())
+
+        arr = [1, "hello", true];
+        console.log(arr.toString())
+        console.log([1, [2, 3], 4].toString())
+
+        // 3. at() method give value of specific index of array
+        var arr = [10, 20, 30];
+        console.log(arr.at(1))
+        console.log(arr.at(-1))
+
+        // 4. join() convert array to string with custom separator
+        console.log(arr.join())
+        console.log(arr.join('-'))
+
+        var arr = [1, [2, 3], 4];
+
+        console.log(arr.join("-"))
+
+        // 5. pop() this remove last element of array
+        var arr = [1, 2, 3, 4, 5]
+        arr.pop()
+        console.log(arr)
+
+        // 6. push() this method add element at last
+        arr.push(6)
+        console.log(arr)
+
+        // 7. shift() this method remove element of array from first index
+        arr.shift()
+        console.log(arr)
+
+        // 8. unshift() this method add element at first
+        arr.unshift(10)
+        console.log(arr)
+
+        // 9. isArray check that object is array or not
+        console.log(Array.isArray(arr))
+
+        // 10. delete can remove element of array
+
+        var arr = [10, 20, 30];
+
+        delete arr[1];
+
+        console.log(arr);
+
+        // 11. concat() this method make new array by mergin new array
+
+        var arr1 = [1, 2, 3];
+        var arr2 = [6, 7, 8];
+
+        var arr = arr1.concat(arr2);
+        console.log(arr);
+
+        // 12. flat() method creates a new array with sub-array elements
+
+        var arr = [[1, 2], [3, 4], [5, 6]];
+        var newArr = arr.flat();
+
+        console.log(newArr);
+
+
+        // 13. slice() this can give specific part of array
+
+        var arr = [10, 20, 30, 40];
+
+        console.log(arr.slice(1,))
+        console.log(arr.slice(1, 3))
+        console.log(arr.slice(-2))
+
+        // 14. splice() method can be used to add new items or remove items to an array
+
+        var arr = [1, 2, 3, 4, 5, 6, 7, 8]
+        arr.splice(2, 0, 20)
+
+        console.log(arr);
+
+        arr.splice(2, 3, 10)
+
+        console.log(arr)
+
+        // 15. indexOf() method return index of first matching element
+
+        var arr = [10, 20, 30, 40, 20];
+
+        console.log(arr.indexOf(20));
+
+        console.log(arr.indexOf(50));
+
+        console.log(arr.indexOf(20, 2));
+
+        // 16. lastIndexOf() method return index of last matching element
+
+        var arr = [10, 20, 30, 40, 20];
+
+        console.log(arr.lastIndexOf(20));
+
+        console.log(arr.lastIndexOf(50));
+
+        console.log(arr.lastIndexOf(20, 3));
+
+        // 17. includes() method check value exist or not (return true/false)
+
+        var arr = [10, 20, 30, 40];
+
+        console.log(arr.includes(20));
+
+        console.log(arr.includes(50));
+
+        console.log(arr.includes(30, 3));
+
+        // 18. find() this method return first element that satisfy condition
+
+        var arr = [5, 10, 15, 20];
+
+        var result = arr.find(x => x > 10);
+
+        console.log(result);
+
+
+        var users = [
+            { name: "Krish", age: 20 },
+            { name: "Raj", age: 17 }
+        ];
+
+        var user = users.find(u => u.age >= 18);
+        console.log(user)
+
+        // 19. findIndex() method return index of first element that satisfy condition
+
+        var arr = [5, 10, 15, 20];
+
+        var result = arr.findIndex(x => x > 10);
+        console.log(result);
+
+        var result2 = arr.findIndex(x => x > 50);
+        console.log(result2);
+
+        // with objects
+        var users = [
+            { name: "Krish", age: 20 },
+            { name: "Raj", age: 17 },
+            { name: "Amit", age: 25 }
+        ];
+
+        var index = users.findIndex(u => u.age >= 18);
+        console.log(index);
+
+
+        // 20. findLast() method return last element that satisfy condition
+
+        var arr = [5, 10, 15, 20];
+
+        var result = arr.findLast(x => x > 10);
+        console.log(result);
+
+        var result2 = arr.findLast(x => x > 50);
+        console.log(result2);
+
+        // with objects
+        var users = [
+            { name: "Krish", age: 20 },
+            { name: "Raj", age: 17 },
+            { name: "Amit", age: 25 }
+        ];
+
+        var user = users.findLast(u => u.age >= 18);
+        console.log(user);
+
+
+        // 21. findLastIndex() method return index of last element that satisfy condition
+
+        var arr = [5, 10, 15, 20];
+
+        var result = arr.findLastIndex(x => x > 10);
+        console.log(result);
+
+        var result2 = arr.findLastIndex(x => x > 50);
+        console.log(result2);
+
+        // with objects
+        var users = [
+            { name: "Krish", age: 20 },
+            { name: "Raj", age: 17 },
+            { name: "Amit", age: 25 }
+        ];
+
+        var index = users.findLastIndex(u => u.age >= 18);
+        console.log(index);
+
+
+        // 22. sort() method sort array elements
+
+        // basic sorting (string)
+        var arr = ["banana", "apple", "mango"];
+        arr.sort();
+        console.log(arr);
+
+        // number sorting (important)
+        var nums = [10, 5, 40, 25];
+
+        nums.sort();
+        console.log(nums);
+        // output: [10, 25, 40, 5] (wrong for numbers)
+
+        // correct way (ascending)
+        nums.sort((a, b) => a - b);
+        console.log(nums);
+        // output: [5, 10, 25, 40]
+
+        // descending order
+        nums.sort((a, b) => b - a);
+        console.log(nums);
+        // output: [40, 25, 10, 5]
+
+        // with objects
+        var users = [
+            { name: "Krish", age: 20 },
+            { name: "Raj", age: 17 },
+            { name: "Amit", age: 25 }
+        ];
+
+        // sort by age
+        users.sort((a, b) => a.age - b.age);
+        console.log(users);
+
+        // sort by name
+        users.sort((a, b) => a.name.localeCompare(b.name));
+        console.log(users);
+
+
+        // 23. reverse() method reverse the array
+
+        var arr = [1, 2, 3, 4, 5];
+
+        arr.reverse();
+        console.log(arr);
+        // output: [5, 4, 3, 2, 1]
+
+        // with string array
+        var fruits = ["apple", "banana", "mango"];
+
+        fruits.reverse();
+        console.log(fruits);
+        // output: ["mango", "banana", "apple"]
+
+        // important: it changes original array
+        var arr2 = [1, 2, 3];
+
+        var reversed = arr2.reverse();
+
+        console.log(arr2);    // [3, 2, 1]
+        console.log(reversed); // [3, 2, 1]
+
+        // 24. toSorted() method sort array WITHOUT changing original array
+
+        var nums = [10, 5, 40, 25];
+
+        var sorted = nums.toSorted((a, b) => a - b);
+
+        console.log(nums);
+        // output: [10, 5, 40, 25] (original not change)
+
+        console.log(sorted);
+        // output: [5, 10, 25, 40]
+
+        // string sorting
+        var fruits = ["banana", "apple", "mango"];
+
+        var sortedFruits = fruits.toSorted();
+        console.log(sortedFruits);
+        // output: ["apple", "banana", "mango"]
+
+        // 25. toReversed() method reverse array WITHOUT changing original array
+
+        var arr = [1, 2, 3, 4, 5];
+
+        var reversed = arr.toReversed();
+
+        console.log(arr);
+        // output: [1, 2, 3, 4, 5] (original not change)
+
+        console.log(reversed);
+        // output: [5, 4, 3, 2, 1]
+
+        // with string array
+        var fruits = ["apple", "banana", "mango"];
+
+        var newFruits = fruits.toReversed();
+
+        console.log(newFruits);
+        // output: ["mango", "banana", "apple"]
+
+
+        // ==========================================================================================
+
+        // 26. forEach() array ke har element pe loop chalata hai (no return)
+
+        var arr = [1, 2, 3];
+
+        arr.forEach(x => console.log(x));
+
+        var users = [
+            { name: "A" },
+            { name: "B" }
+        ];
+
+        users.forEach(user => console.log(user));
+
+        // 27. flatMap() = map + flat
+
+        // Q1
+        var arr = [1, 2, 3];
+
+        var result = arr.flatMap(x => [x, x * 2]);
+
+        console.log(result);
+        // output: [1, 2, 2, 4, 3, 6]
+
+        // Q2
+        var arr = [1, 2, 3];
+
+        var result = arr.flatMap(ele => [ele, ele * 10])
+
+        console.log(result)
+        // output: [1, 10, 2, 20, 3, 30]
+
+        // Q3
+        var arr = ["hello world", "js code"];
+
+        var newArr = arr.flatMap(ele => ele.toUpperCase().split(' '))
+
+        console.log(newArr)
+        // ['HELLO', 'WORLD', 'JS', 'CODE']
+
+
+        // 28. filter() condition ke basis pe elements select karo (new array)
+
+        // Q1
+        var arr = [1, 2, 3, 4];
+
+        var result = arr.filter(x => x % 2 === 0);
+        console.log(result);
+        // output: [2, 4]
+
+        // Q2
+        var users = [
+            { name: "A", age: 17 },
+            { name: "B", age: 22 }
+        ];
+
+        var adults = users.filter(u => u.age >= 18);
+        console.log(adults)
+        // output: [{name: 'B', age: 22}]
+
+        // Q3
+        var arr = ["apple", "bat", "cat"];
+        var newArr = arr.filter(ele => ele.length > 3)
+
+        console.log(newArr);
+        // output: ['apple']
+
+        // 29. reduce() array ko ek single value me convert karna
+
+        // Q1 sum
+        var arr = [1, 2, 3, 4];
+
+        var sum = arr.reduce((acc, cur) => acc + cur, 0);
+        console.log(sum)
+
+        // Q2 max value
+        var arr = [10, 50, 20];
+
+        var max = arr.reduce((acc, cur) => cur > acc ? cur : acc);
+        console.log(max)
+
+        // Q3 
+        var products = [
+            { name: "Phone", price: 20000 },
+            { name: "Laptop", price: 50000 },
+            { name: "Tablet", price: 15000 }
+        ];
+        var totPrice = products.reduce((tot, p) => tot + p.price, 0)
+        console.log(totPrice);
+
+        // 30. reduceRight() - reduce jaisa hi hai, but right → left (last se start)
+
+        // Q1
+        var arr = [1, 2, 3, 4];
+
+        var result = arr.reduceRight((acc, cur) => acc + cur, 0);
+
+        console.log(result);
+
+        // Q2
+        var arr = ["H", "e", "l", "l", "o"];
+
+        var result = arr.reduceRight((acc, cur) => acc + cur, "");
+        console.log(result)
+        // output: "olleH"
+
+        // Q3
+        var arr = ["js", "is", "fun"];
+        var rev = arr.reduceRight((rev, ele) => rev + ' ' + ele)
+        console.log(rev)
+        // output: fun is js
+
+        // 31. every() check karo ki sab elements condition pass karte hai ya nahi
+
+        // Q1
+        var arr = [2, 4, 6];
+
+        var result = arr.every(x => x % 2 === 0);
+
+        console.log(result); // true
+
+        // Q2
+        var arr = [2, 4, 5];
+
+        var result = arr.every(x => x % 2 === 0);
+
+        console.log(result); //false
+
+        // Q3
+        var arr = ["apple", "banana", "cat"];
+        var result = arr.every(e => e.length > 3)
+        console.log(result); // false
+
+        // 32. some() check karo ki koi ek element condition pass karta hai ya nahi
+
+        // Q1
+        var arr = [1, 3, 5, 6];
+
+        var result = arr.some(x => x % 2 === 0);
+
+        console.log(result); //true
+
+        // 33. from() kisi array-like ya iterable ko real array me convert karta hai
+
+        // Q1
+        var str = "hello";
+
+        var arr = Array.from(str);
+        console.log(arr);
+        // output: ['h', 'e', 'l', 'l', 'o']
+
+        // Q2
+        var arr = Array.from({ length: 5 }, (_, i) => i + 1); //from + map used
+        console.log(arr);
+
+        // 34. keys() array ke indexes ka iterator deta hai
+
+        // Q1
+        var arr = ["a", "b", "c"];
+
+        var keys = arr.keys();
+
+        console.log(keys);
+        // output: Array Iterator {}
+
+        var result = [...arr.keys()]
+        console.log(result);
+        // output: [0, 1, 2]
+
+        // Q2
+        var arr = ["a", "b", "c"];
+
+        for (let i of arr.keys()) {
+            console.log(i, arr[i]);
+        }
+
+        // Q3
+        var arr = ['a', 'b', 'c']
+        var result = [...arr.keys()].map(ele => ele + '-' + arr[ele])
+        console.log(result)
+
+        // 35. entries() [index, value] pairs ka iterator deta hai
+
+        // Q1
+        var arr = ["a", "b", "c"];
+
+        var result = [...arr.entries()];
+        console.log(result)
+
+        // Q2
+        var arr = ["apple", "banana", "mango"];
+
+        for (let [index, value] of arr.entries()) {
+            console.log(index, value);
+        }
+
+        // 36. with() kisi index ka value replace karo (without changing original array)
+
+        // Q1
+        var arr = [10, 20, 30];
+
+        var result = arr.with(1, 99);
+
+        console.log(result);
+
+        // Q2
+        var arr = [10, 20, 30];
+
+        var result = arr.with(-1, 100);
+
+        console.log(result);
+
+        // Q3
+        var users = [
+            { name: "A" },
+            { name: "B" },
+            { name: "C" }
+        ];
+
+        var updated = users.with(1, { name: "Updated" });
+        console.log(updated)
+    </script>
+
+</body>
+
+</html>

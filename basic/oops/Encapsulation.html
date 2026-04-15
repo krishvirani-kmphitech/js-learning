@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Encapsulation</title>
+  </head>
+  <body>
+    <script>
+      class car {
+        #speed = 120;
+
+        // getSpeed() {
+        //   return this.#speed;
+        // }
+
+        get getSpeed() {
+            return this.#speed;
+        }
+
+        setSpeed(speed) {
+          this.#speed = speed;
+        }
+      }
+
+      const c = new car();
+
+      document.write(c.getSpeed);
+    </script>
+  </body>
+</html>

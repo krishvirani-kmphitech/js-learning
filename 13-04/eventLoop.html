@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>event loop</title>
+  </head>
+  <body>
+    <script>
+      // NOTES : which code run when this decide by event loop. specially in setTimeout, async await, promises
+      //    - js is single threaded so that this can run one task at time. but also this can manage timer, api calls, and promiese because of event loop.
+
+      //    1. call stack
+      //    - in event loop main component is "call stack"
+      //        - in call stack synchronous methods run and this follow "LIFO" also - last in first out
+
+      //    2. web APIs
+      //    - setTimeout, fetch, and DOM event this all include in web APIs.
+      //    - but this all things not manage in js engine that all think run in node.js or browser
+
+      //    3. macrotask queue
+      //    - setTimeout and setInterval all are macrotask.
+
+      //    4. microstack queue
+      //    - promise.then all are microtask
+
+      //   NOTES : microtask have higher priority then macrotask means microtask run first in event loop after that macrotask run.
+
+      //   example 1
+      function eventLoop() {
+        console.log("Start");
+
+        setTimeout(() => {
+          console.log("Timeout");
+        }, 0);
+
+        Promise.resolve().then(() => {
+          console.log("Promise");
+        });
+
+        console.log("End");
+      }
+
+      //   eventLoop();
+
+      //   Explanation :
+      //    step 1: start print
+      //    step 2: setTimeout handle by browser and callback is wait queue
+      //    step 3: microtask also wait in queue
+      //    step 4: end print
+      //    step 5: check call stack is empty or not. if empty then first run microtask as promise and after that macrotask as callback of setTimeout
+
+      //   example 2
+      function eventLoop2() {
+        console.log("1");
+
+        setTimeout(() => {
+          console.log("2");
+
+          Promise.resolve().then(() => {
+            console.log("3");
+          });
+        }, 0);
+
+        Promise.resolve().then(() => {
+          console.log("4");
+        });
+
+        console.log("5");
+      }
+
+      //   eventLoop2();
+      //   output: 1, 5, 4, 2, 3
+
+      //   example 3
+      function eventLoop3() {
+        console.log("A");
+
+        Promise.resolve()
+          .then(() => {
+            console.log("B");
+            return Promise.resolve();
+          })
+          .then(() => {
+            console.log("C");
+          });
+
+        console.log("D");
+      }
+
+      // eventLoop3();
+      // output: A, D, B, C
+
+    </script>
+  </body>
+</html>

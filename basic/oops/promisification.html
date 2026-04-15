@@ -1,0 +1,41 @@
+<html>
+  <body>
+    <div id="output"></div>
+    <script>
+      let output = document.getElementById("output");
+      const findSum = (p1, p2, callback) => {
+        if (!p1 || !p2) {
+          return callback(new Error("Missing dependencies"), null);
+        }
+        const sum = p1 + p2;
+        const msg = "The sum of numbers is " + sum;
+        return callback(null, sum, msg); // We call the callback function
+      };
+      function promisifyFunc(func) {
+        return (...args) => {
+          // Returning a function
+          return new Promise((resolve, reject) => {
+            // Returning a promise
+            // Defining a custom callback for the function
+            function callbackFunc(err, ...data) {
+              if (err) {
+                return reject(err);
+              }
+              return resolve(data);
+            }
+            args.push(callbackFunc); // Adding callback function into argument
+            func.call(this, ...args); // Calling the findSum() function
+          });
+        };
+      }
+      const getSumPromise = promisifyFunc(findSum);
+      getSumPromise(5, 10)
+        .then((message) => {
+          output.innerHTML = message;
+        })
+        .catch((err) => {
+          output.innerHTML = err;
+        });
+    </script>
+  </body>
+</html>

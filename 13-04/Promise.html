@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Promise</title>
+  </head>
+  <body>
+    <script>
+      // NOTES: promise is an object thats represent future completion or rejection of async operation
+      //    - promise has 3 state.
+      //        1. pending - initial stage
+      //        2. fulfilled - success
+      //        3. rejected - failed
+
+      // promise have some method also then(), catch(), finally(), all(), race()
+      //    then() - if promise state is fulfilled then then() block run
+      //    catch() - if promise state is rejected then catch() block run
+      //    finally() - finally() block run always if state is fulfilled or rejected
+      //    all() - if all promise resolve then then() block run else catch() run
+      //    race() - first promise run
+
+      // example 1 ------------------------------------------
+      const promise = new Promise((resolve, reject) => {
+        // let success = false;
+        let success = true;
+        if (success) {
+          resolve("task completed");
+        } else {
+          reject("task failed");
+        }
+      });
+
+      //   promise.then((res) => console.log(res)).catch((rej) => console.log(rej));
+
+      //   example 2 ------------------------------------------
+      function fetchData() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve("Data fetched successfully");
+          }, 2000);
+        });
+      }
+
+      //   fetchData().then((res) => console.log(res))
+
+      //    example 3 ------------------------------------------
+      Promise.resolve("success")
+        .then((res) => console.log(res))
+        .finally(() => console.log("Promise Done 1"));
+
+      Promise.reject("error")
+        .catch((rej) => console.log(rej))
+        .finally(() => console.log("Promise Done 2"));
+      // here finally block alwase run if promise is resolve or reject
+
+      //   example 4 ------------------------------------------
+
+      Promise.resolve(20)
+        .finally(() => {
+          console.log("Finally block run");
+          return 10;
+        })
+        .then((res) => {
+          console.log(res);
+        });
+      //NOTE: that finally block can't have permission to change value of resolve or reject
+
+      // example 5 ------------------------------------------
+      Promise.all([
+        Promise.resolve(10),
+        Promise.resolve(14),
+        Promise.resolve(20),
+      ]).then((res) => console.log(res));
+      //   IF all promise is resolve then execute .then()   output: [10, 14, 20]
+
+      Promise.all([
+        Promise.resolve(10),
+        Promise.reject(404),
+        Promise.resolve(20),
+      ])
+        .then((res) => console.log(res))
+        .catch((rej) => console.log(rej));
+      // IF one promise reject then execute .catch()    output: 404
+
+      //   example 6 ------------------------------------------
+      const a = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve("Promise A");
+        }, 1000);
+      });
+
+      const b = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve("Promise B");
+        }, 500);
+      });
+
+      Promise.race([a, b])
+        .then((res) => console.log(res))
+        .catch((rej) => console.log(rej));
+      //   accept promise that come first
+    </script>
+  </body>
+</html>

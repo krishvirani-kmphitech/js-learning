@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>regular expressions</title>
+  </head>
+  <body>
+    <script>
+      // regular expressions
+
+      // this are flag in regExp
+      // /i - ignore case
+      // /g - check globle
+      // /d - substring match
+      // /m - multiline matching
+
+      // NOTES: in regExp alternation is denoted by pipeline symbol '|'
+
+      // i flag
+      let str = "Hello World";
+      //   console.log(str.search("world")); // -1 becuase is str have world is capital
+      //   console.log(str.search(/world/i)); // 6 becuase this i ignore case
+
+      // g flag
+      const str2 = "red, blue, green, yellow, black";
+      //   console.log(str2.match(/red|green/g));
+
+      // d flag
+      let str3 = "aaaccc";
+      //   console.log(str3.match(/(aa)(cc)/d));
+
+      // s flag - this accept dot metachacter in string to match
+      let str4 = "back.back";
+      console.log(str4.match(/back./s));
+
+      // this are metachacter in regExp
+      // \d - digit
+      // \w - word
+      // \s - spaces
+
+      // access all digits
+      let str5 = "100% off";
+      console.log(str5.match(/\d/g));
+      // output: ['1', '0', '0']
+
+      // access all word
+      console.log(str5.match(/\w/g));
+      // output: ['1', '0', '0', 'o', 'f', 'f']
+
+      // regExp chacter class
+      // [a] - match character that between the brackets
+      // [^a] - match all character that not between the brackets
+      // [abc] - match all character that between the brackets
+      // [^abc] - match all character that not between the brackets
+      // [a-z] - match all character that between range of a and z
+      // [^a-z] - match all character that between not range of a and z
+
+      let str6 = "Hello World!";
+
+      //   console.log(str6.match(/[HWG]/g));
+      //output: ['H', 'W'] - G not show becuase this is not in string
+
+      let str7 = "work1 work2";
+      //   console.log(str7.match(/[a-z]/g));
+      // output: ['w', 'o', 'r', 'k', 'w', 'o', 'r', 'k'] here this ignore number and only show alphabet
+
+      //   console.log(str7.match(/[0-9]/g));
+      // output: ['1', '2'] here alphabet is ignore only number show
+
+      const str8 = "123456789";
+      //   console.log(str8.match(/[0-3]/g));
+      // output: ['1', '2', '3'] here this show only 0-3 number
+
+      //   console.log(str8.match(/[^0-3]/g));
+      // output: [4, 5, 6, 7, 8, 9] here 0-3 ignore
+
+      // regExp Assertions
+      // ^ - match the beginning of string
+      // $ - match the ending of string
+      // \b - match the beginning and ending of word
+      // \B - not match the beginning and ending of word
+
+      const str9 = "hello world";
+      console.log(/^hello/.test(str9)); // true
+      // here this check string is start from hello or not, if yes then return true else false
+
+      console.log(/world$/.test(str9)); // true
+      // here this check string is end from world or not
+
+      // use \b
+      const str10 = "cat go catelog";
+      console.log(str10.match(/\bcat\b/g));
+      // output: ['cat'] this not add catelog's cat
+      console.log(str10.match(/cat/g));
+      // output: ['cat', 'cat']
+
+      // RexExp Quantifiers
+      // x+ - match at least one x
+      // x* - match zero or more occurrences x
+      // x? - match zeor or one x
+      // x{n} - match n occurrences of x
+      // x{n, m} - match n to m occurrences of x
+      // x{n,} - match n to more occurrences of x
+
+      const str11 = "hello world! hellooo";
+
+      console.log(str11.match(/lo+/g));
+      // output: ['lo', 'looo'] this include also looo
+
+      console.log(str11.match(/lo*/g));
+      // outptu: ['l', 'lo', 'l', 'l', 'looo'] this include only l also
+
+      console.log(str11.match(/lo?/g));
+      // output: ['l', 'lo', 'l', 'l', 'lo']
+
+      const str12 = "100, 1000 and 10000";
+      console.log(str12.match(/\d{1,3}/g));
+      // output: ['100', '100', '0', '100', '00']
+
+      console.log(str12.match(/\d{1,}/g));
+      // output: ['100', '1000', '10000']
+      
+    </script>
+  </body>
+</html>

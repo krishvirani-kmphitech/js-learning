@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Async Await</title>
+  </head>
+  <body>
+    <script>
+      // NOTES: async await is cleaner way to write promises
+
+      // async : async keyword write before then function so that this function always gives promise
+      // await : await means wait untill promise is fulfilled or rejected.
+      //    - await can only used inside async function
+
+      // example 1 ------------------------------------------
+
+      function fetchData() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve("data fetched");
+          }, 2000);
+        });
+      }
+
+      async function getData() {
+        const data = await fetchData();
+        console.log(data);
+      }
+
+      //   getData();
+
+      //   example 2 ------------------------------------------
+
+      async function test() {
+        try {
+          const data = await Promise.reject("Data not get");
+
+          console.log(data);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      //   test()
+
+      // example 3 ------------------------------------------
+
+      async function example() {
+        const a = await Promise.resolve(20);
+        const b = await Promise.resolve(30);
+
+        console.log(a + b);
+      }
+
+      example();
+
+
+    </script>
+  </body>
+</html>

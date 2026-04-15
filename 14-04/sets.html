@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Set</title>
+  </head>
+  <body>
+    <script>
+      // NOTES: set is create by using "new Set()" - and here we can pass array in set or else we can add element by using "add()" method
+      //    - to check length of set use size method, legnth method not work
+
+      // declare set with new keyword
+      const letters = new Set(["a", "b", "c"]);
+      console.log(letters.size);
+
+      // add new element in set with add method
+      letters.add("d");
+      console.log(letters.size);
+
+      // List all element
+      console.log("----------- for of loop -----------");
+      for (let x of letters) {
+        console.log(x);
+      }
+
+      console.log("----------- forEach loop -----------");
+      letters.forEach((latter) => {
+        console.log(latter);
+      });
+
+      // TypeOf set is object
+      console.log(typeof letters);
+
+      // has() - this return true if value is exist else false
+      console.log(letters.has("b")); // true
+      console.log(letters.has("e")); // false
+
+      // values() - this method return values of set in iterator
+      const value = letters.values();
+      console.log(value); // {'a', 'b', 'c', 'd'}
+
+      // keys() - method returns a set iterator with all the values from a Set.
+      const keys = letters.keys();
+      console.log(keys);
+
+      // entries() - this method return [value, value] of set
+      const entries = letters.entries();
+      console.log(entries);
+
+      console.log(
+        "-----------------------------------------------------------",
+      );
+
+      const set1 = new Set(["a", "b", "c", "d"]);
+      const set2 = new Set(["d", "e", "f"]);
+
+      // 1. union() - this return new set with all element of set 1 and set 2
+      const result = set1.union(set2);
+      console.log(result);
+      // output: {'a', 'b', 'c', 'd', 'e', 'f'}
+
+      // 2. intersection() - this method return those element that comman in both set
+      const result1 = set1.intersection(set2);
+      console.log(result1);
+      // output: {'d'}
+
+      // 3. difference() - this method return those element this are in set but not in argument set
+      const result2 = set1.difference(set2);
+      console.log(result2);
+      // output: {'a', 'b', 'c'}
+
+      // 4. symmetricDifference() - this method return those element that are not common
+      const result3 = set1.symmetricDifference(set2);
+      console.log(result3);
+      // output: {'a', 'b', 'c', 'e', 'f'}
+
+      // 5. isSubsetOf() - if all elements of set1 are in set2 then this method return true else false
+      const result4 = set1.isSubsetOf(set2);
+      console.log(result4);
+      // output: false - becuase "a,b,c" is not in set 2
+
+      const set3 = new Set(["a", "b", "c", "d", "e", "f", "g"]);
+      const result5 = set1.isSubsetOf(set3);
+      console.log(result5);
+      // output: true - becuase set 3 also have all element that are in set 1
+
+      // 6. isSupersetOf() - if set1 contains every element of set2 then this return true else false
+      const result6 = set1.isSupersetOf(set2);
+      console.log(result6);
+      // output: false - becuase set1 not have all element of set2
+
+      const set4 = new Set(["a", "b", "c", "d"]);
+      const result7 = set4.isSupersetOf(set1);
+      console.log(result7);
+      // output: true - becuase set4 have all element that are in set1
+
+      // 7. isDisjointFrom() - this return false if any element is not comman in this set
+      const result8 = set1.isDisjointFrom(set2);
+      console.log(result8);
+      // output: false - becuase this two set have some common values
+
+      const set5 = new Set(["q", "w", "e"]);
+      const result9 = set5.isDisjointFrom(set1);
+      console.log(result9);
+      // output: true - becuase this two have not any common value
+
+      
+
+    </script>
+  </body>
+</html>
