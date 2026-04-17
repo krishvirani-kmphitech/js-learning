@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shallow and deep copy</title>
+</head>
+
+<body>
+
+    <script>
+
+        const obj = {
+            name: "krish",
+            address: {
+                city: "surat"
+            },
+            getName: function () {
+                console.log("name : " + this.name);
+            }
+        }
+
+        // obj.getName = function () {
+        //     console.log("name : " + this.name);
+        // }
+
+        // this make shallow copy
+        // const shallowObj = { ...obj };
+
+        // this make deep copy
+
+        // const shallowObj = JSON.parse(JSON.stringify(obj));
+        // but here have limitation : this not handle function, undefine, map and set
+
+        // this is better way to make deep copy 
+        const shallowObj = structuredClone(obj);
+
+        shallowObj.address.city = "bhavnagar";
+        shallowObj.name = "piyush";
+
+        console.log("obj.name : " + obj.name)
+        // console.log("shallowObj.name : " + shallowObj.name)
+        console.log("obj.address.city : " + obj.address.city)
+        // console.log("shallowObj.address.city : " + shallowObj.address.city)
+
+        obj.getName();
+        shallowObj.getName();
+
+    </script>
+
+</body>
+
+</html>

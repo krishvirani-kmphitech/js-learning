@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX</title>
+</head>
+
+<body>
+
+    <p id="output"></p>
+    <button id="btn" onclick="getData()">click</button>
+
+    <ul id="userUl"></ul>
+    <button onclick="getAllUser()">GET ALL USER</button>
+    <button onclick="clearUser()">CLEAR</button> <br />
+    <input type="text" id="userNo" placeholder="enter user number">
+    <button onclick="getSingleUser()">GET SINGLE USER</button> <br />
+
+    <input type="text" id="search" placeholder="search username">
+    <button onclick="searchUser()">search</button>
+
+    <br />
+    <br />
+
+    <form id="form">
+        <input type="text" id="title" placeholder="title"> <br />
+        <input type="text" id="body" placeholder="body"> <br />
+        <button type="submit">submit</button>
+    </form>
+
+    <h3>FACT</h3>
+    <p id="catFact"></p>
+    <button onclick="getCatFact()">Get Fact</button>
+
+    <script>
+
+        async function getData() {
+            const randome = Math.ceil(Math.random() * 10);
+            const res = await fetch(`https://jsonplaceholder.typicode.com/todos/${randome}`);
+            const data = await res.json();
+
+            document.getElementById("output").innerHTML = data.title;
+
+            console.log(data);
+            console.log(res);
+        }
+
+        async function getAllUser() {
+            const res = await fetch("https://jsonplaceholder.typicode.com/users");
+            const users = await res.json();
+
+            let html = "";
+            html += users.map(u =>
+                `<li>${u.name} + ${u.username} + ${u.email}</li>`
+            );
+
+            document.getElementById("userUl").innerHTML = html;
+
+            console.log(res);
+            console.log(html);
+        }
+
+        async function getSingleUser() {
+            let userNo = document.getElementById("userNo").value;
+            if (userNo == "") {
+                userNo = 1;
+            }
+            const res = await fetch(`https://jsonplaceholder.typicode.com/users/${userNo}`);
+            const user = await res.json();
+
+            let html = `<li>${user.name} + ${user.username} + ${user.email} </li>`
+
+            document.getElementById("userUl").innerHTML = html;
+
+            console.log(html)
+
+        }
+
+        const form = document.getElementById("form");
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            let title = document.getElementById("title").value;
+            let body = document.getElementById("body").value;
+
+            const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    title: title,
+                    body: body,
+                    userId: 1
+                })
+            });
+            console.log(res);
+            const data = res.json();
+            console.log(data);
+        })
+
+        async function searchUser() {
+            const res = await fetch("https://jsonplaceholder.typicode.com/users");
+            const users = await res.json();
+            const search = document.getElementById("search").value;
+
+            const selectedUser = users.filter(u => {
+                return u.username.toLowerCase().includes(search.toLowerCase());
+            });
+
+            let html = "";
+            html += selectedUser.map(user => `<li>${user.name} + ${user.username} + ${user.email} </li>`)
+            console.log(html);
+
+            document.getElementById("userUl").innerHTML = html;
+
+        }
+
+        function clearUser() {
+            console.log("click")
+            document.getElementById("userUl").innerHTML = "";
+        }
+
+        async function getCatFact() {
+
+            const res = await fetch("https://catfact.ninja/fact");
+            const fact = await res.json();
+            console.log(fact);
+            document.getElementById("catFact").innerHTML = `${fact.fact} | length : ${fact.length} `;
+        }
+
+    </script>
+
+</body>
+
+</html>

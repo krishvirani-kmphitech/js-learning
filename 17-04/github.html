@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>github repo</title>
+</head>
+
+<body>
+
+    <input type="text" id="username" placeholder="enter github username">
+    <button onclick="searchUser()">search</button>
+
+    <div id="github"></div>
+
+    <script>
+
+        async function searchUser() {
+            try {
+                let html = "";
+
+                const userName = document.getElementById("username").value;
+                if (userName.length == 0) {
+                    document.getElementById("github").innerHTML = "<p>Please enter username</p>";
+                    return;
+                }
+
+                const res = await fetch(`https://api.github.com/users/${userName}/repos`)
+                // const res = await fetch(`https://api.github.com/users/virani-krish/repos`)
+
+                const data = await res.json();
+
+                if (data.length == 0) {
+                    document.getElementById("github").innerHTML = "<h3>User Not Found</h3>";
+                    return;
+                }
+
+                data.forEach(ele => {
+                    html += `
+                        <h3>${ele.name}</h3>
+                        <p>created At: ${ele.created_at}</p>
+                        <p>updated At: ${ele.updated_at}</p>
+                        <a href="${ele.clone_url}" target="_blank">Visit Repo</a>
+                    `;
+                });
+
+                document.getElementById("github").innerHTML = html;
+            } catch (error) {
+                document.getElementById("github").innerHTML = "<h3>User Not Found</h3>"
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

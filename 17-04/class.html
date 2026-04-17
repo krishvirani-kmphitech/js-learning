@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>class</title>
+</head>
+
+<body>
+
+    <script>
+
+        class car {
+            constructor(name) {
+                this.name = name;
+            }
+
+            displayCar() {
+                console.log("car name : " + this.name);
+            }
+
+            // getter
+            get getCar() {
+                console.log("car name : " + this.name);
+            }
+
+            // setter
+            set setCar(name) {
+                this.name = name;
+            }
+
+            static helloCar() {
+                console.log("this is car class");
+            }
+
+        }
+
+        class model extends car {
+            constructor(model, name) {
+                super(name);
+                this.model = model;
+            }
+
+            displayModel() {
+                this.displayCar();
+                console.log("Model name : " + this.model)
+            }
+
+            // getter
+            get getModel() {
+                this.getCar
+                console.log("Model name : " + this.model)
+            }
+
+            // setter
+            set setModel(model) {
+                this.model = model;
+            }
+
+        }
+
+        const m1 = new model("m1", "audi");
+
+        m1.setCar = "BMW"
+        m1.setModel = "M2"
+
+        m1.getModel;
+
+        const c1 = new car("Audi");
+        // c1.helloCar(); // this will return error becuase helloCar() is static methos and this can't access by class's object
+        // m1.helloCar(); // this will return error becuase helloCar() is static methos and this can't access by class's object
+        
+        car.helloCar() // we access helloCar() by using class name
+
+    </script>
+
+</body>
+
+</html>

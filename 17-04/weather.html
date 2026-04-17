@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+</head>
+
+<body>
+
+    <h2>Weather App</h2>
+
+    <input type="text" id="city">
+    <button onclick="getWeather()">Get Weather</button>
+
+    <p id="temp">Temp : </p>
+    <p id="minTemp">Min Temp : </p>
+    <p id="maxTemp">Max Temp : </p>
+    <p id="feelsLike">Feels like : </p>
+
+    <script>
+        // https://api.openweathermap.org/data/2.5/weather?q=surat&appid=18dddf68778ca101115edb69422cd1d4&units=metric
+        async function getWeather() {
+
+            let city = document.getElementById("city").value;
+            if (city == "") {
+                city = "surat"
+            }
+            const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=18dddf68778ca101115edb69422cd1d4&units=metric`)
+
+            const data = await res.json();
+            console.log(data);
+
+            document.getElementById("temp").innerHTML = "";
+            document.getElementById("minTemp").innerHTML = "";
+            document.getElementById("maxTemp").innerHTML = "";
+            document.getElementById("feelsLike").innerHTML = "";
+
+            document.getElementById("temp").innerHTML += `Temp : ${data.main.temp}`;
+            document.getElementById("minTemp").innerHTML += `Min Temp : ${data.main.temp_min}`;
+            document.getElementById("maxTemp").innerHTML += `Max Temp : ${data.main.temp_max}`;
+            document.getElementById("feelsLike").innerHTML += `Feels Like : ${data.main.feels_like}`;
+
+        }
+
+    </script>
+
+</body>
+
+</html>
