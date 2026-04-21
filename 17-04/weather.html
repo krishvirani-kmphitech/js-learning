@@ -27,7 +27,7 @@
             if (city == "") {
                 city = "surat"
             }
-            const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=18dddf68778ca101115edb69422cd1d4&units=metric`)
+            const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=api_key&units=metric`)
 
             const data = await res.json();
             console.log(data);
