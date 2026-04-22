@@ -1,79 +1,109 @@
 [{
   "_id": {
-    "$oid": "69e8993406ac354a192835c1"
+    "$oid": "69e8a0372a284739fef66edd"
   },
   "userType": "company",
-  "name": "abc",
+  "name": "abc 1",
   "email": "abc@gmail.com",
-  "password": "$2b$10$3ZB0amsHEpKxchyLLcnegOUilvtIJ2G.G5HIlA63Fghizd74XpcWO",
+  "password": "$2b$10$YTaGJTiHEoz9cqNsaAQcL.qFzHhO7rFFmdQ9foTNd6xdU982Hhdra",
   "phone": 9898989898,
   "companyId": null,
   "availabilityFrom": null,
   "availabilityTo": null,
   "employmentType": null,
-  "isDeleted": {
-    "$date": "2026-04-22T09:56:27.905Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "69e8995806ac354a192835c2"
-  },
-  "userType": "guard",
-  "name": "raj",
-  "email": "raj@gmail.com",
-  "password": "$2b$10$wAIpJqyXYPVU6YW/ORLg6u4NrT4AVLJHwYHhhztxn1IbQiMWA1QX.",
-  "phone": 9898989898,
-  "companyId": {
-    "$oid": "69e8993406ac354a192835c1"
-  },
-  "availabilityFrom": "mon",
-  "availabilityTo": "sat",
-  "employmentType": "fullTime",
-  "maxHoursPerWeek": 40,
-  "isDeleted": {
-    "$date": "2026-04-22T09:50:10.202Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "69e8996f06ac354a192835c4"
-  },
-  "userType": "guard",
-  "name": "krish",
-  "email": "krish@gmail.com",
-  "password": "$2b$10$2xb.OKHpun5kEw7UoEeo0ep1e4FetsdFGjv2rplGd7/jE2TGP32D2",
-  "phone": 9898989898,
-  "companyId": {
-    "$oid": "69e8993406ac354a192835c1"
-  },
-  "availabilityFrom": "mon",
-  "availabilityTo": "sat",
-  "employmentType": "fullTime",
-  "maxHoursPerWeek": 40,
-  "isDeleted": null,
-  "__v": 0,
   "deletedAt": {
-    "$date": "2026-04-22T10:08:25.648Z"
-  }
+    "$date": "2026-04-22T10:17:56.598Z"
+  },
+  "__v": 0
 },
 {
   "_id": {
-    "$oid": "69e89c2e971503a434127403"
+    "$oid": "69e8a089bc57d5646f5450a3"
   },
   "userType": "company",
   "name": "abc 2",
   "email": "abc@gmail.com",
-  "password": "$2b$10$HRlrRGgzsum5KXRqQ8iI2O8qK/C0d00wIeYZzz/CAI5w6lW.0mAYu",
+  "password": "$2b$10$d.WMVaMZ1yMumFp81dH6fOu5Tz3WFm8tKiO4oJSH5Yp/U/etMBZNK",
   "phone": 9898989898,
   "companyId": null,
   "availabilityFrom": null,
   "availabilityTo": null,
   "employmentType": null,
-  "isDeleted": {
-    "$date": "2026-04-22T10:01:48.243Z"
+  "deletedAt": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69e8a0babc57d5646f5450a4"
   },
+  "userType": "guard",
+  "name": "Krish",
+  "email": "krish@gmail.com",
+  "password": "$2b$10$jMEiCVEahOTTepZ6xZ.G2uqAs.prbAO9bPYOnyo00atPeJZGDvgRG",
+  "phone": 9898989898,
+  "companyId": {
+    "$oid": "69e8a089bc57d5646f5450a3"
+  },
+  "availabilityFrom": "mon",
+  "availabilityTo": "sat",
+  "employmentType": "fullTime",
+  "maxHoursPerWeek": 40,
+  "deletedAt": {
+    "$date": "2026-04-22T10:20:09.741Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69e8a0ecbc57d5646f5450a5"
+  },
+  "userType": "guard",
+  "name": "Krish 2",
+  "email": "krish@gmail.com",
+  "password": "$2b$10$KpJ0gjYK.v9/oII0ZA/KYuZ3zszZ2RSmnuthf/QlRk5PpvHJW.hbS",
+  "phone": 9898989898,
+  "companyId": {
+    "$oid": "69e8a089bc57d5646f5450a3"
+  },
+  "availabilityFrom": "mon",
+  "availabilityTo": "sat",
+  "employmentType": "fullTime",
+  "maxHoursPerWeek": 40,
+  "deletedAt": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69e8a10bbc57d5646f5450a6"
+  },
+  "userType": "company",
+  "name": "xyz",
+  "email": "xyz@gmail.com",
+  "password": "$2b$10$KEH1SaSaqwiAoD2S4Mk/KuLA4JoxwIA/ElyL2ct5prcNbtgLTgTqC",
+  "phone": 9898989898,
+  "companyId": null,
+  "availabilityFrom": null,
+  "availabilityTo": null,
+  "employmentType": null,
+  "deletedAt": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69e8a130bc57d5646f5450a7"
+  },
+  "userType": "guard",
+  "name": "krish 3",
+  "email": "krish@gmail.com",
+  "password": "$2b$10$bzAsYEYAk.UfGtShByngZeypJgqIbUhM2mEWlwBfrKhA1eZFtpIpm",
+  "phone": 9898989898,
+  "companyId": {
+    "$oid": "69e8a10bbc57d5646f5450a6"
+  },
+  "availabilityFrom": "mon",
+  "availabilityTo": "sat",
+  "employmentType": "fullTime",
+  "maxHoursPerWeek": 40,
+  "deletedAt": null,
   "__v": 0
 }]

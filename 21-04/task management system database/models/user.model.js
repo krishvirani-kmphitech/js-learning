@@ -62,7 +62,7 @@ userSchema.index(
         unique: true,
         partialFilterExpression: {
             userType: { $in: ["guard", "client"] },
-            isDeleted: { $eq: null }
+            deletedAt: { $eq: null }
         }
     });
 
@@ -72,7 +72,7 @@ userSchema.index(
         unique: true,
         partialFilterExpression: {
             userType: "company",
-            isDeleted: { $eq: null }
+            deletedAt: { $eq: null }
         }
     }
 )
