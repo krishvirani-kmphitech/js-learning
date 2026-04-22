@@ -8,7 +8,7 @@ const shiftSchema = new Schema({
     },
     assignTo: {
         type: Schema.Types.ObjectId,
-        ref: "Guard",
+        ref: "User",
         required: true
     },
     startData: {
@@ -18,7 +18,14 @@ const shiftSchema = new Schema({
     endDate: {
         type: Date,
         required: Date,
-        min: [this.startData, "End date must be greater then start date"]
+        validate: {
+            validator: function (endDate) {
+                if (endDate < this.startDate) {
+                    return false;
+                }
+            },
+            message: "we need end date greater then start date"
+        }
     },
     location: {
         // addressLine: {

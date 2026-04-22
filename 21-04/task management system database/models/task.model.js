@@ -18,7 +18,14 @@ const taskSchema = new Schema({
     endTime: {
         type: Date,
         required: true,
-        min: [this.startTime, "end time must be greater then start time"]
+        validate: {
+            validator : function(endTime) {
+                if(endTime < this.startTime) {
+                    return false;
+                }
+            },
+            message: "we need end time greater then start time"
+        }
     },
     subTask: [
         {

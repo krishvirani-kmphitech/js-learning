@@ -3,7 +3,7 @@ import mongoose, { Schema, model } from "mongoose";
 const tourSchema = new Schema({
     assignTo: {
         type: Schema.Types.ObjectId,
-        ref: "Guard",
+        ref: "User",
         required: true
     },
     tourName: {
@@ -17,7 +17,14 @@ const tourSchema = new Schema({
     endDate: {
         type: Date,
         required: true,
-        min: [this.startData, "End date must be greater then start date"]
+        validate: {
+            validator: function (endDate) {
+                if (endDate < this.startDate) {
+                    return false;
+                }
+            },
+            message: "we need end date greater then start date"
+        }
     }
 });
 
