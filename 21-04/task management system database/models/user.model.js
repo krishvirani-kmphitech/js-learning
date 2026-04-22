@@ -61,7 +61,8 @@ userSchema.index(
     {
         unique: true,
         partialFilterExpression: {
-            userType: { $in: ["guard", "client"] }
+            userType: { $in: ["guard", "client"] },
+            isDeleted: { $eq: null }
         }
     });
 

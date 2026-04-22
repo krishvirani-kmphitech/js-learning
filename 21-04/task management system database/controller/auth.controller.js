@@ -146,7 +146,7 @@ const deleteUser = async (req, res) => {
     await User.findByIdAndUpdate(
         _id,
         {
-            isDeleted: new Date()
+            deletedAt: new Date()
         }
     )
 
