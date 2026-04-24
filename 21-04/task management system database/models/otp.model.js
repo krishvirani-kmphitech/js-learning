@@ -38,5 +38,15 @@ const otpSchema = new Schema({
 
 });
 
+otpSchema.index(
+    { userId: 1, otpType: 1, otpUsedAt: 1 },
+    {
+        unique: true,
+        partialFilterExpression: {
+            otpUsedAt: { $eq: null }
+        }
+    }
+)
+
 const otp = model("otp", otpSchema);
 export default otp;

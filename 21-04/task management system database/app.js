@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import cookieParser from 'cookie-parser';
 
 import authRoute from "./routes/auth.route.js";
+import userRoute from "./routes/user.route.js";
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/auth", authRoute);
+app.use("/user", userRoute);
 
 app.use((req, res, next) => {
 
@@ -33,7 +35,7 @@ app.use((err, req, res, next) => {
         .status(err.statusCode || 500)
         .json({
             success: false,
-            message: err.message || "something went to wrong"
+            message: err.message || "Internal Server Error."
         });
 
 });
