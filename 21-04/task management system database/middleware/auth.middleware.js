@@ -1,49 +1,39 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
+import ApiError from "../utils/errorClass.js";
+import ApiResponse from "../utils/responceClass.js";
 
 const authMiddleware = async (req, res, next) => {
 
     try {
-        const header = req.headers.authorization;
+        const header = req.headers.authorization || req.cookies.token;
 
         if (!header) {
-            return res.status(400).json({
-                success: false,
-                message: "Token not found"
-            })
+            return next(new ApiError(401, "Token not found"));
         }
 
-        const token = header.split(' ')[1];
+        const token = header.startsWith("Bearer ") ? token = header.split(" ")[1] : header;
 
         if (!token) {
-            return res.status(400).json({
-                success: false,
-                message: "Token not found"
-            })
+            return next(new ApiError(401, "Token is not valid"));
         }
 
         const decodedToken = jwt.verify(token, process.env.JWT_KEY);
 
-        console.log(decodedToken);
+        const user = await User.findOne({
+            _id: decodedToken._id,
+            deletedAT: null,
+            verifiedAt: { $ne: null }
+        });
 
-        const user = await User.findById(decodedToken._id, "-password");
-
-        if(!user) {
-            return res.status(400).json({
-                success: false,
-                message: "User not exists"
-            });
+        if (!user) {
+            return next(new ApiError(401, "User not exist"));
         }
 
         req.user = user;
         next();
     } catch (error) {
-
-        return res.status(400).json({
-            success: false,
-            message: error ? error?.message : "something went to wrong"
-        });
-
+        next(error);
     }
 
 }

@@ -1,111 +1,219 @@
 import User from "../models/user.model.js";
+import Otp from "../models/otp.model.js";
 import jwt from "jsonwebtoken";
+import ApiError from "../utils/errorClass.js";
+import ApiResponse from "../utils/responceClass.js";
+import bcrypt from "bcrypt";
 
-const registerUser = async (req, res) => {
+const generateOtp = () => {
+    const otp = Math.floor(Math.random() * 900000) + 100000;
+    return otp;
+}
+
+const sendOtp = async (userId, otpType) => {
+    try {
+
+        const otpRecord = await Otp.findOne({
+            userId,
+            otpType,
+            otpUsedAt: null
+        });
+
+        if (otpRecord) {
+
+            if (otpRecord.generatedAt > Date.now() - Number(process.env.OTP_COOLDOWN)) {
+                throw new ApiError(429, "Please wait before requesting another OTP");
+            }
+
+            if (otpRecord.resendWindowStart < Date.now() - Number(process.env.OTP_RESEND_WINDOW)) {
+                otpRecord.resendCount = 0;
+                otpRecord.resendWindowStart = Date.now();
+                await otpRecord.save();
+            }
+
+            if (otpRecord.resendCount >= 5) {
+                throw new ApiError(429, "OTP limit exceeded. Try again later");
+            }
+
+            await Otp.findByIdAndDelete(
+                otpRecord._id
+            );
+
+        }
+
+        const otp = generateOtp();
+        console.log("OTP : " + otp);
+        const hashOtp = await bcrypt.hash(String(otp), 10);
+
+        await Otp.create({
+            userId,
+            otp: hashOtp,
+            otpType,
+            generatedAt: Date.now(),
+            resendCount: otpRecord ? otpRecord.resendCount + 1 : 1,
+            resendWindowStart: otpRecord?.resendWindowStart || Date.now()
+        });
+
+    } catch (error) {
+        // console.log("-----------sendOtp function------------");
+        // console.error(error);
+        throw error;
+    }
+
+}
+
+const verifyOtp = async (userId, otp, otpType) => {
+
+    try {
+        const activeOtp = await Otp.findOne({
+            userId,
+            otpType,
+            otpUsedAt: null,
+            // generatedAt: { $gt: Date.now() - 5 * 60 * 1000 }
+            generatedAt: { $gt: Date.now() - Number(process.env.OTP_EXPIRY) }
+        });
+
+        if (!activeOtp) {
+            throw new ApiError(400, "OTP not found or OTP is expired");
+        }
+
+        if (activeOtp.attempts >= 5) {
+            throw new ApiError(429, "Too many attempts. OTP blocked.");
+        }
+
+        const isOtpCorrect = await bcrypt.compare(String(otp), activeOtp.otp);
+
+        if (!isOtpCorrect) {
+
+            activeOtp.attempts += 1;
+            await activeOtp.save();
+
+            throw new ApiError(400, "OTP is incorrect");
+        }
+
+        await Otp.findByIdAndDelete(activeOtp._id);
+
+    } catch (error) {
+        throw error;
+    }
+
+}
+
+const resendOtp = async (req, res, next) => {
+
+    try {
+        const { userId, otpType } = req.body;
+
+        const otpRecord = await Otp.findOne({
+            userId,
+            otpType,
+            otpUsedAt: null
+        });
+
+        if (!otpRecord) {
+            return next(new ApiError(400, "No active OTP process found"))
+        }
+
+        await sendOtp(userId, otpType);
+
+        return res
+            .status(200)
+            .json(new ApiResponse(200, "OTP resend successfully"));
+
+    } catch (error) {
+        next(error);
+    }
+
+}
+
+const registerUser = async (req, res, next) => {
 
     try {
         const {
             name,
             email,
-            phone,
+            phoneNumber,
+            phoneFlag,
+            phoneCode,
             password,
             userType,
             companyId,
-            availabilityFrom,
-            availabilityTo,
+            availability,
             employmentType,
             maxHoursPerWeek
         } = req.body;
 
-        if (!name || !email || !phone || !password || !userType) {
-            return res.status(400).json({
-                success: false,
-                message: "All fields are required"
-            });
-        }
-
         if (userType !== "company") {
-
-            if (!companyId) {
-                return res.status(400).json({
-                    success: false,
-                    message: "company id is required for guard and client"
-                });
-            }
 
             const company = await User.findById(companyId);
 
             if (!company) {
-                return res.status(404).json({
-                    success: false,
-                    message: "company not exist"
-                });
+                return next(new ApiError(404, "company not exist"));
             }
 
             if (company.userType !== "company") {
-                return res.status(404).json({
-                    success: false,
-                    message: "user's role is not company"
-                });
+                return next(new ApiError(400, "user's role is not company"));
             }
 
         }
 
-        await User.create({
-            name,
-            email,
-            phone,
-            password,
-            userType,
-            companyId,
-            availabilityFrom,
-            availabilityTo,
-            employmentType,
-            maxHoursPerWeek
-        });
+        const user = await User.create(req.body);
 
-        return res.status(201).json({
-            success: true,
-            message: "Account created successfully"
-        });
+        await sendOtp(user._id, "account-registration");
+
+        return res
+            .status(201)
+            .json(new ApiResponse(201, "Account created and otp generated"));
 
 
     } catch (error) {
         console.log("error : " + error);
-        res.status(400).json({
-            success: false,
-            message: error ? error?.message : "something went to wrong"
-        })
+        next(error);
     }
 
 };
 
-const loginUser = async (req, res) => {
+const verifyUser = async (req, res, next) => {
+
+    try {
+        const { userId, otp, otpType } = req.body;
+
+        await verifyOtp(userId, otp, otpType);
+
+        await User.findByIdAndUpdate(
+            userId,
+            {
+                verifiedAt: Date.now()
+            }
+        );
+
+        return res
+            .status(200)
+            .json(new ApiResponse(200, "User verify successfully"));
+
+    } catch (error) {
+        next(error);
+    }
+
+}
+
+const loginUser = async (req, res, next) => {
 
     try {
         const { email, password } = req.body;
 
-        if (!email || !password) {
-            return res.status(400).json({
-                success: false,
-                message: "All fields are required"
-            });
-        }
-
-        const user = await User.findOne({ email, isDeleted: null });
+        const user = await User.findOne({ email, deletedAt: null });
 
         if (!user) {
-            return res.status(400).json({
-                success: false,
-                message: "Email or password are wrong"
-            });
+            return next(new ApiError(404, "User not found"));
+        }
+
+        if (user.verifiedAt == null) {
+            return next(new ApiError(403, "User not verified by otp"));
         }
 
         if (!(await user.comparePassword(password))) {
-            return res.status(400).json({
-                success: true,
-                message: "Password is wrong"
-            });
+            return next(new ApiError(401, "Email or password are wrong"));
         }
 
         const token = await jwt.sign(
@@ -122,54 +230,118 @@ const loginUser = async (req, res) => {
 
         const { password: pwd, ...clearUser } = user._doc;
 
-        return res.status(200).json({
-            success: true,
-            data: clearUser,
-            token
-        });
+        return res
+            .status(200)
+            .cookie("token", token,
+                { maxAge: 1 * 24 * 60 * 60 * 1000, httpOnly: true }
+            )
+            .json(new ApiResponse(200, "Login successfully done", { user: clearUser, token }));
 
     } catch (error) {
-
-        return res.status(400).json({
-            success: false,
-            message: "Something went to wrong"
-        });
-
+        next(error);
     }
 
 }
 
-const deleteUser = async (req, res) => {
+const logoutUser = async (req, res, next) => {
 
-    const { _id } = req.user;
+    return res
+        .status(200)
+        .clearCookie("token")
+        .json(new ApiResponse(200, "Logout successfully done"));
 
-    await User.findByIdAndUpdate(
-        _id,
-        {
-            deletedAt: new Date()
+}
+
+const forgetPassword = async (req, res, next) => {
+    try {
+        const { email } = req.body;
+
+        const user = await User.findOne({ email, deletedAt: null });
+
+        if (!user) {
+            return next(new ApiError(400, "User not found"));
         }
-    )
 
-    return res.status(200).json({
-        success: true,
-        message: "User deleted successfully"
-    });
+        await sendOtp(user._id, "forget-password");
+
+        return res
+            .status(200)
+            .json(new ApiResponse(200, "OTP generated successfully"));
+
+    } catch (error) {
+        // console.log("-----------forget function------------");
+        // console.error(error);
+        next(error);
+    }
 
 };
 
-const getUser = async (req, res) => {
+const resetPassword = async (req, res, next) => {
 
-    return res.status(200).json({
-        success: true,
-        data: req.user
-    });
+    try {
+
+        const { userId, otp, newPassword } = req.body;
+
+        await verifyOtp(userId, otp, "forget-password");
+
+        const hashNewPassword = await bcrypt.hash(newPassword, 10);
+
+        await User.findByIdAndUpdate(
+            userId,
+            {
+                password: hashNewPassword
+            }
+        );
+
+        return res
+            .status(200)
+            .json(new ApiResponse(200, "Password reset successfully"));
+
+
+    } catch (error) {
+        next(error);
+    }
+
+}
+
+const deleteUser = async (req, res, next) => {
+
+    try {
+        const { _id } = req.user;
+
+        await User.findByIdAndUpdate(
+            _id,
+            {
+                deletedAt: new Date()
+            }
+        )
+
+        return res
+            .status(200)
+            .json(new ApiResponse(200, "User deleted successfully"));
+    } catch (error) {
+        next(error);
+    }
+
+};
+
+const getUser = async (req, res, next) => {
+
+    return res
+        .status(200)
+        .json(new ApiResponse(200, "Data get successfully", { user: req.user }));
 
 }
 
 
 export {
     registerUser,
+    verifyUser,
     loginUser,
+    logoutUser,
+    forgetPassword,
+    resetPassword,
+    resendOtp,
     getUser,
     deleteUser
 };

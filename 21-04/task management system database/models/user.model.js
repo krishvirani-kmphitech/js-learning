@@ -20,8 +20,16 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    phone: {
-        type: Number,
+    phoneNumber: {
+        type: String,
+        required: true
+    },
+    phoneFlag: {
+        type: String,
+        required: true
+    },
+    phoneCode: {
+        type: String,
         required: true
     },
     companyId: {
@@ -29,16 +37,7 @@ const userSchema = new Schema({
         ref: "Company",
         default: null
     },
-    availabilityFrom: {
-        type: String,
-        enum: ["sun", "mon", "tue", "wed", "thu", "fri", "sat"],
-        default: null
-    },
-    availabilityTo: {
-        type: String,
-        enum: ["sun", "mon", "tue", "wed", "thu", "fri", "sat"],
-        default: null
-    },
+    availability: [String],
     employmentType: {
         type: String,
         enum: ["fullTime", "partTime"],
@@ -48,6 +47,10 @@ const userSchema = new Schema({
         type: Number,
         min: 10,
         max: 40
+    },
+    verifiedAt: {
+        type: Date,
+        default: null
     },
     deletedAt: {
         type: Date,
@@ -117,3 +120,6 @@ userSchema.methods.comparePassword = async function (password) {
 
 const User = model("User", userSchema);
 export default User;
+
+
+// add country code and flag
