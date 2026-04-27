@@ -13,12 +13,16 @@ const SUCCESS_MSG = {
     PASSWORD_RESET: "Password reset successfully",
 
     ALL_COMPANY_FOUND: "All company data get successfully",
-    COMPANY_FOUND: "Company data found successfully"
+    COMPANY_FOUND: "Company data found successfully",
+
+    GUARD_FETCH: "Guard data fetch successfully"
 }
 
 const ERROR_MSG = {
     INVALID_CREDENTIALS: "Email or password are wrong",
     INVALID_COMPANY: "Company not exist or not found",
+
+    EMAIL_ALREADY_USED: "Email already used by other user",
 
     USER_NOT_FOUND: "User not found",
     USER_NOT_VERIFY: "User not verified by otp",

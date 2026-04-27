@@ -5,7 +5,20 @@ const otpSchema = new Schema({
     userId: {
         type: Schema.Types.ObjectId,
         ref: "User",
-        required: true
+        default: null
+    },
+    email: {
+        type: String,
+        default: null
+    },
+    userType: {
+        type: String,
+        enum: ["company", "guard", "client"]
+    },
+    companyId: {
+        type: Schema.Types.ObjectId,
+        ref: "user",
+        defualt: "user"
     },
     otp: {
         type: String,
@@ -13,6 +26,7 @@ const otpSchema = new Schema({
     },
     otpType: {
         type: String,
+        enum: ["forget-password", "account-registration"],
         required: true
     },
     generatedAt: {
@@ -39,7 +53,7 @@ const otpSchema = new Schema({
 });
 
 otpSchema.index(
-    { userId: 1, otpType: 1, otpUsedAt: 1 },
+    { email: 1, otpType: 1, otpUsedAt: 1 },
     {
         unique: true,
         partialFilterExpression: {

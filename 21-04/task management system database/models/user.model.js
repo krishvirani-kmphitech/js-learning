@@ -48,16 +48,12 @@ const userSchema = new Schema({
         min: 10,
         max: 40
     },
-    verifiedAt: {
-        type: Date,
-        default: null
-    },
     deletedAt: {
         type: Date,
         default: null
     }
 
-});
+}, { timestamps: true });
 
 userSchema.index(
     { companyId: 1, email: 1 },

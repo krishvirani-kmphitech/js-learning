@@ -26,8 +26,7 @@ const authMiddleware = asyncHandler(async (req, res, next) => {
 
     const user = await User.findOne({
         _id: decodedToken._id,
-        deletedAt: null,
-        verifiedAt: { $ne: null }
+        deletedAt: null
     });
 
     if (!user) {

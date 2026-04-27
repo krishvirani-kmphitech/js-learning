@@ -1,13 +1,24 @@
 import Joi from "joi";
 
 const userRegisterSchema = Joi.object({
+    email: Joi.string().email().required(),
+    userType: Joi.string().valid("guard", "client", "company").required(),
+    companyId: Joi.when("userType", {
+        is: Joi.valid("guard", "client"),
+        then: Joi.required(),
+        otherwise: Joi.forbidden()
+    })
+});
+
+const verifyUserRegisterSchema = Joi.object({
+    otp: Joi.string().required(),
+    userType: Joi.string().valid("guard", "client", "company").required(),
     name: Joi.string().min(3).required(),
     email: Joi.string().email().required(),
+    password: Joi.string().required(),
     phoneNumber: Joi.string().pattern(/^[0-9]+$/).min(8).max(12).required(),
     phoneFlag: Joi.string().required(),
     phoneCode: Joi.string().pattern(/^[0-9]+$/).min(1).max(3).required(),
-    password: Joi.string().required(),
-    userType: Joi.string().valid("guard", "client", "company").required(),
     companyId: Joi.when("userType", {
         is: Joi.valid("guard", "client"),
         then: Joi.required(),
@@ -35,19 +46,32 @@ const userLoginSchema = Joi.object({
     password: Joi.string().required(),
     userType: Joi.string().required(),
     companyId: Joi.when("userType", {
-        is: Joi.valid("gaurd", "client"),
-        then: Joi.required()
-    }),
+        is: Joi.valid("guard", "client"),
+        then: Joi.required(),
+        otherwise: Joi.forbidden()
+    })
 });
 
 const forgetPasswordSchema = Joi.object({
-    email: Joi.string().email().required()
+    email: Joi.string().email().required(),
+    userType: Joi.string().valid("guard", "client", "company").required(),
+    companyId: Joi.when("userType", {
+        is: Joi.valid("guard", "client"),
+        then: Joi.required(),
+        otherwise: Joi.forbidden()
+    })
 });
 
 const resetPasswordSchema = Joi.object({
     otp: Joi.number().required(),
     newPassword: Joi.string().required(),
-    userId: Joi.string().required()
+    email: Joi.string().required(),
+    userType: Joi.string().required(),
+    companyId: Joi.when("userType", {
+        is: Joi.valid("guard", "client"),
+        then: Joi.required(),
+        otherwise: Joi.forbidden()
+    })
 });
 
 const resendOtpSchema = Joi.object({
@@ -57,6 +81,7 @@ const resendOtpSchema = Joi.object({
 
 export {
     userRegisterSchema,
+    verifyUserRegisterSchema,
     userLoginSchema,
     forgetPasswordSchema,
     resetPasswordSchema,
