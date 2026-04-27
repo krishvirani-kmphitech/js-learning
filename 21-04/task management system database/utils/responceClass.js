@@ -7,11 +7,11 @@ class ApiResponse {
     }
 }
 
-const sendResponse = (res, statusCode, message, data = null) => {
-    return res
-        .status(statusCode)
-        .json(new ApiResponse(statusCode, message, data));
-}
+// const sendResponse = (res, statusCode, message, data = null) => {
+//     return res
+//         .status(statusCode)
+//         .json(new ApiResponse(statusCode, message, data));
+// }
 
 const sendSuccess = (res, message, data = null, statusCode = 200) => {
     return res
@@ -26,7 +26,6 @@ const sendCreated = (res, message, data = null, statusCode = 201) => {
 }
 
 export {
-    sendResponse,
     sendSuccess,
     sendCreated
 };

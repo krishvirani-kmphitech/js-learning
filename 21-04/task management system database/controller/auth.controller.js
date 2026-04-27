@@ -2,7 +2,7 @@ import User from "../models/user.model.js";
 import Otp from "../models/otp.model.js";
 import jwt from "jsonwebtoken";
 import ApiError from "../utils/errorClass.js";
-import { sendCreated, sendResponse, sendSuccess } from "../utils/responceClass.js";
+import { sendCreated, sendSuccess } from "../utils/responceClass.js";
 import bcrypt from "bcrypt";
 import asyncHandler from "../utils/asyncHandler.js";
 import { SUCCESS_MSG, ERROR_MSG } from "../constants/messages.js";
@@ -24,7 +24,7 @@ const sendOtp = async (userId, otpType) => {
         if (otpRecord) {
 
             if (otpRecord.generatedAt > new Date(Date.now() - Number(process.env.OTP_COOLDOWN))) {
-                throw new ApiError.tooManyRequest(ERROR_MSG.WAIT_FOR_OTP);
+                throw ApiError.tooManyRequest(ERROR_MSG.WAIT_FOR_OTP);
             }
 
             if (otpRecord.resendWindowStart < new Date(Date.now() - Number(process.env.OTP_RESEND_WINDOW))) {
@@ -34,7 +34,7 @@ const sendOtp = async (userId, otpType) => {
             }
 
             if (otpRecord.resendCount >= 5) {
-                throw new ApiError.tooManyRequest(ERROR_MSG.TOO_MANY_RESEND_OTP);
+                throw ApiError.tooManyRequest(ERROR_MSG.TOO_MANY_RESEND_OTP);
             }
 
             await Otp.findByIdAndDelete(
@@ -156,7 +156,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
 const verifyUser = asyncHandler(async (req, res) => {
 
-    const { userId, otp, otpType } = req.body;
+    const { userId, otp } = req.body;
 
     await verifyOtp(userId, otp, "account-registration");
 
@@ -173,9 +173,13 @@ const verifyUser = asyncHandler(async (req, res) => {
 
 const loginUser = asyncHandler(async (req, res) => {
 
-    const { email, password } = req.body;
+    const { email, password, userType, companyId } = req.body;
 
-    const user = await User.findOne({ email, deletedAt: null });
+    let query = userType === "company"
+        ? { email, userType, deletedAt: null }
+        : { email, userType, companyId, deletedAt: null };
+
+    const user = await User.findOne(query).populate("companyId", "name email");
 
     if (!user) {
         throw ApiError.notFound(ERROR_MSG.USER_NOT_FOUND);
@@ -205,9 +209,9 @@ const loginUser = asyncHandler(async (req, res) => {
 
     res.cookie("token", token,
         { maxAge: 1 * 24 * 60 * 60 * 1000, httpOnly: true }
-    )
+    );
 
-    return sendSuccess(res, SUCCESS_MSG.LOGIN_SUCCESS, { user: clearUser, token })
+    return sendSuccess(res, SUCCESS_MSG.LOGIN_SUCCESS, { user: clearUser })
 
 })
 
@@ -241,14 +245,19 @@ const resetPassword = asyncHandler(async (req, res) => {
 
     await verifyOtp(userId, otp, "forget-password");
 
-    const hashNewPassword = await bcrypt.hash(newPassword, 10);
+    const user = await User.findById(userId);
 
-    await User.findByIdAndUpdate(
-        userId,
-        {
-            password: hashNewPassword
-        }
-    );
+    user.password = newPassword;
+    await user.save();
+
+    // const hashNewPassword = await bcrypt.hash(newPassword, 10);
+
+    // await User.findByIdAndUpdate(
+    //     userId,
+    //     {
+    //         password: hashNewPassword
+    //     }
+    // );
 
     return sendSuccess(res, SUCCESS_MSG.PASSWORD_RESET);
 

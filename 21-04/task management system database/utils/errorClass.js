@@ -21,8 +21,12 @@ class ApiError extends Error {
         return new ApiError(404, msg);
     }
 
-    static tooManyRequest(msg = "Resource not found") {
-        return new ApiError(404, msg);
+    static conflict(msg = "Conflict") {
+        return new ApiError(409, msg);
+    }
+
+    static tooManyRequest(msg = "Too many requests") {
+        return new ApiError(429, msg);
     }
 
     static internal(msg = "Internal Server Error") {

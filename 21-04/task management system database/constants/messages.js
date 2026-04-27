@@ -32,6 +32,7 @@ const ERROR_MSG = {
 
     INVALID_TOKEN: "TOKEN is not valid",
     TOKEN_NOT_FOUND: "TOKEN not found",
+    JWT_KEY_MISSING: "JWT Key is missing",
 
 };
 

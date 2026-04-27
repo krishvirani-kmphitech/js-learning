@@ -34,7 +34,7 @@ const userSchema = new Schema({
     },
     companyId: {
         type: Schema.Types.ObjectId,
-        ref: "Company",
+        ref: "User",
         default: null
     },
     availability: [String],
@@ -92,34 +92,5 @@ userSchema.methods.comparePassword = async function (password) {
     return await bcrypt.compare(password, this.password);
 }
 
-// userSchema.pre("save", async function (next) {
-
-//     if (this.userType !== "company") {
-//         const emailExist = await User.findOne({
-//             companyId: this.companyId,
-//             email: this.email,
-//             _id: { $ne: this._id }
-//         });
-
-//         if (emailExist) {
-//             return next(new Error("This email already used in this company."))
-//         }
-
-//     } else {
-//         const emailExist = await User.findOne({ email: this.email, userType: "company", _id: { $ne: this._id } });
-
-//         if (emailExist) {
-//             return next(new Error("This email already used by one company."))
-//         }
-
-//     }
-
-//     next();
-
-// });
-
 const User = model("User", userSchema);
 export default User;
-
-
-// add country code and flag

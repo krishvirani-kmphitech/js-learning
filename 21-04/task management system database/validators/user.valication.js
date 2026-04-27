@@ -32,7 +32,12 @@ const userRegisterSchema = Joi.object({
 
 const userLoginSchema = Joi.object({
     email: Joi.string().email().required(),
-    password: Joi.string().required()
+    password: Joi.string().required(),
+    userType: Joi.string().required(),
+    companyId: Joi.when("userType", {
+        is: Joi.valid("gaurd", "client"),
+        then: Joi.required()
+    }),
 });
 
 const forgetPasswordSchema = Joi.object({
