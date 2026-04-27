@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/auth", authRoute);
-app.use("/user", userRoute);
+app.use("/users", userRoute);
 
 app.use((req, res, next) => {
 

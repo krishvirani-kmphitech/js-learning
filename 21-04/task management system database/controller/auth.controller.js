@@ -12,81 +12,89 @@ const generateOtp = () => {
     return otp;
 }
 
-const sendOtp = asyncHandler(async (userId, otpType) => {
+const sendOtp = async (userId, otpType) => {
 
-    const otpRecord = await Otp.findOne({
-        userId,
-        otpType,
-        otpUsedAt: null
-    });
+    try {
+        const otpRecord = await Otp.findOne({
+            userId,
+            otpType,
+            otpUsedAt: null
+        });
 
-    if (otpRecord) {
+        if (otpRecord) {
 
-        if (otpRecord.generatedAt > new Date(Date.now() - Number(process.env.OTP_COOLDOWN))) {
-            throw new ApiError.tooManyRequest(ERROR_MSG.WAIT_FOR_OTP);
+            if (otpRecord.generatedAt > new Date(Date.now() - Number(process.env.OTP_COOLDOWN))) {
+                throw new ApiError.tooManyRequest(ERROR_MSG.WAIT_FOR_OTP);
+            }
+
+            if (otpRecord.resendWindowStart < new Date(Date.now() - Number(process.env.OTP_RESEND_WINDOW))) {
+                otpRecord.resendCount = 0;
+                otpRecord.resendWindowStart = new Date();
+                await otpRecord.save();
+            }
+
+            if (otpRecord.resendCount >= 5) {
+                throw new ApiError.tooManyRequest(ERROR_MSG.TOO_MANY_RESEND_OTP);
+            }
+
+            await Otp.findByIdAndDelete(
+                otpRecord._id
+            )
+
         }
 
-        if (otpRecord.resendWindowStart < new Date(Date.now() - Number(process.env.OTP_RESEND_WINDOW))) {
-            otpRecord.resendCount = 0;
-            otpRecord.resendWindowStart = new Date();
-            await otpRecord.save();
+        const otp = generateOtp();
+        console.log("OTP : " + otp);
+        const hashOtp = await bcrypt.hash(String(otp), 10);
+
+        await Otp.create({
+            userId,
+            otp: hashOtp,
+            otpType,
+            generatedAt: new Date(),
+            resendCount: otpRecord ? otpRecord.resendCount + 1 : 1,
+            resendWindowStart: otpRecord?.resendWindowStart || new Date()
+        });
+    } catch (error) {
+        throw error;
+    }
+
+}
+
+const verifyOtp = async (userId, otp, otpType) => {
+
+    try {
+        const activeOtp = await Otp.findOne({
+            userId,
+            otpType,
+            otpUsedAt: null,
+            generatedAt: { $gt: new Date(Date.now() - Number(process.env.OTP_EXPIRY)) }
+        });
+
+        if (!activeOtp) {
+            throw ApiError.badRequest(ERROR_MSG.OTP_NOT_FOUND_OR_EXPIRE);
         }
 
-        if (otpRecord.resendCount >= 5) {
-            throw new ApiError.tooManyRequest(ERROR_MSG.TOO_MANY_RESEND_OTP);
+        if (activeOtp.attempts >= 5) {
+            throw ApiError.tooManyRequest(ERROR_MSG.TOO_MANY_OTP_ATTEMPT);
         }
 
-        await Otp.findByIdAndDelete(
-            otpRecord._id
-        )
+        const isOtpCorrect = await bcrypt.compare(String(otp), activeOtp.otp);
 
+        if (!isOtpCorrect) {
+
+            activeOtp.attempts += 1;
+            await activeOtp.save();
+
+            throw ApiError.badRequest(ERROR_MSG.OTP_IS_WRONG);
+        }
+
+        await Otp.findByIdAndDelete(activeOtp._id);
+    } catch (error) {
+        throw error;
     }
 
-    const otp = generateOtp();
-    console.log("OTP : " + otp);
-    const hashOtp = await bcrypt.hash(String(otp), 10);
-
-    await Otp.create({
-        userId,
-        otp: hashOtp,
-        otpType,
-        generatedAt: new Date(),
-        resendCount: otpRecord ? otpRecord.resendCount + 1 : 1,
-        resendWindowStart: otpRecord?.resendWindowStart || new Date()
-    });
-
-})
-
-const verifyOtp = asyncHandler(async (userId, otp, otpType) => {
-
-    const activeOtp = await Otp.findOne({
-        userId,
-        otpType,
-        otpUsedAt: null,
-        generatedAt: { $gt: new Date(Date.now() - Number(process.env.OTP_EXPIRY)) }
-    });
-
-    if (!activeOtp) {
-        throw new ApiError.badRequest(ERROR_MSG.OTP_NOT_FOUND_OR_EXPIRE);
-    }
-
-    if (activeOtp.attempts >= 5) {
-        throw ApiError.tooManyRequest(ERROR_MSG.TOO_MANY_OTP_ATTEMPT);
-    }
-
-    const isOtpCorrect = await bcrypt.compare(String(otp), activeOtp.otp);
-
-    if (!isOtpCorrect) {
-
-        activeOtp.attempts += 1;
-        await activeOtp.save();
-
-        throw ApiError.badRequest(ERROR_MSG.OTP_IS_WRONG);
-    }
-
-    await Otp.findByIdAndDelete(activeOtp._id);
-
-})
+}
 
 const resendOtp = asyncHandler(async (req, res) => {
 
@@ -174,7 +182,7 @@ const loginUser = asyncHandler(async (req, res) => {
     }
 
     if (user.verifiedAt == null) {
-        throw ApiError.forbidden(ERROR_MSG.USER_NOT_FOUND);
+        throw ApiError.forbidden(ERROR_MSG.USER_NOT_VERIFY);
     }
 
     if (!(await user.comparePassword(password))) {
@@ -280,4 +288,4 @@ export {
     deleteUser
 };
 
-// make api that show company list, company - guard and client list with magination
+// make api that show company list, company - guard and client list with pagination

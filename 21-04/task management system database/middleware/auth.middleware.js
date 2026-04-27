@@ -13,7 +13,7 @@ const authMiddleware = asyncHandler(async (req, res, next) => {
         throw ApiError.unauthorized(ERROR_MSG.TOKEN_NOT_FOUND);
     }
 
-    const token = header.startsWith("Bearer ") ? token = header.split(" ")[1] : header;
+    const token = header.startsWith("Bearer ") ? header.split(" ")[1] : header;
 
     if (!token) {
         throw ApiError.unauthorized(ERROR_MSG.INVALID_TOKEN);
