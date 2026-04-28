@@ -1,150 +1,91 @@
-import mongoose from "mongoose";
-import { SUCCESS_MSG } from "../constants/messages.js";
+import mongoose, { Schema } from "mongoose";
+import { ERROR_MSG, SUCCESS_MSG } from "../constants/messages.js";
 import User from "../models/user.model.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import { sendSuccess } from "../utils/responceClass.js";
+import ApiError from "../utils/errorClass.js";
 
+const getUsersOfCompany = asyncHandler(async (req, res) => {
 
+    const { userType, page, limit } = req.validated.query;
 
-const getUsers = asyncHandler(async (req, res) => {
+    const skip = (page - 1) * limit;
 
-    const page = req.query.page || 1;
-    const limit = req.query.limit || 2;
+    const removeFields = userType === "client"
+        ? "-password -availability -employmentType -maxHoursPerWeek"
+        : "-password"
 
-    const users = await User.aggregate([
-        {
-            $match: {
-                userType: "company"
-            }
-        },
-        {
-            $skip: (page - 1) * limit
-        },
-        {
-            $limit: limit
-        },
-        {
-            $project: {
-                password: 0,
-                companyId: 0,
-                availability: 0,
-                employmentType: 0
-            }
-        },
-        {
-            $lookup: {
-                from: "users",
-                localField: "_id",
-                foreignField: "companyId",
-                pipeline: [
-                    {
-                        $match: {
-                            userType: "guard"
-                        }
-                    },
-                    {
-                        $project: {
-                            password: 0
-                        }
-                    }
-                ],
-                as: "companyGuard",
-            }
-        },
-        {
-            $lookup: {
-                from: "users",
-                localField: "_id",
-                foreignField: "companyId",
-                pipeline: [
-                    {
-                        $match: {
-                            userType: "client"
-                        }
-                    },
-                    {
-                        $project: {
-                            password: 0,
-                            availability: 0,
-                            employmentType: 0
-                        }
-                    }
-                ],
-                as: "companyClient"
-            }
-        },
-        {
-            $addFields: {
-                totalGuard: { $size: "$companyGuard" },
-                totalCompany: { $size: "$companyClient" }
-            }
-        }
+    const [userList, totalUser] = await Promise.all([
+        User.find({ companyId: req.user._id, userType })
+            .select(removeFields)
+            .skip(skip)
+            .limit(limit),
+        User.countDocuments({
+            companyId: req.user._id,
+            userType
+        })
     ]);
 
-    return sendSuccess(res, SUCCESS_MSG.ALL_COMPANY_FOUND, { users });
+    return sendSuccess(res, SUCCESS_MSG.ALL_COMPANY_USER_FETCH, { list: userList, totalRecords: totalUser });
 
 });
 
 const getCompany = asyncHandler(async (req, res) => {
 
     const { email } = req.body;
+    const { page, limit } = req.validated.query;
+    const skip = (page - 1) * limit;
 
-    const list = await User.aggregate([
-        {
-            $match:
-            {
-                email
-            }
-        },
-        {
-            $lookup:
-            {
-                from: "users",
-                localField: "companyId",
-                foreignField: "_id",
-                as: "company"
-            }
-        },
-        {
-            $project:
-            {
-                email: "$email",
-                companyName: {
-                    $first: "$company.name"
-                },
-                companyId: {
-                    $first: "$company._id"
-                }
-            }
-        },
-        {
-            $addFields:
-            {
-                companyDetails: {
-                    companyId: "$companyId",
-                    companyName: "$companyName"
-                }
-            }
-        },
-        {
-            $group:
-            {
-                _id: "companyName",
-                companyList: {
-                    $push: "$companyDetails"
-                }
-            }
-        }
+    const [userData, totalUser] = await Promise.all([
+        User.find({ email })
+            .skip(skip)
+            .limit(limit)
+            .populate("companyId", "name"),
+        User.countDocuments({ email })
     ]);
 
-    return sendSuccess(res, SUCCESS_MSG.COMPANY_FOUND, list);
+    if (userData.length === 0) {
+        throw ApiError.notFound(ERROR_MSG.USER_NOT_FOUND);
+    }
+
+    return sendSuccess(res, SUCCESS_MSG.COMPANY_FETCH, { list: userData.map(i => i.companyId), totalRecords: totalUser });
 
 });
 
 
 export {
-    getUsers,
+    getUsersOfCompany,
     getCompany
 }
 
-// NOTE: getCompanyByEmail ma response array ma jose.
+
+// getCompany populate method
+// const companyList = await User.aggregate([
+//         {
+//             $match:
+//             {
+//                 email
+//             }
+//         },
+//         {
+//             $lookup:
+//             {
+//                 from: "users",
+//                 localField: "companyId",
+//                 foreignField: "_id",
+//                 as: "company"
+//             }
+//         },
+//         {
+//             $project:
+//             {
+//                 _id: 0,
+//                 companyId: { $first: "$company._id" },
+//                 companyName: { $first: "$company.name" }
+//             }
+//         }
+//     ]);
+
+// return sendSuccess(res, SUCCESS_MSG.COMPANY_FETCH, { list: companyList });
+
+// getUserOfCompany

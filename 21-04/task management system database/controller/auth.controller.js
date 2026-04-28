@@ -185,71 +185,17 @@ const resendOtp = asyncHandler(async (req, res) => {
 
 const loginUser = asyncHandler(async (req, res) => {
 
-    const { email, password, userType } = req.body;
+    const { email, password, userType, companyId = null } = req.body;
 
     const query = userType === "company"
         ? { email, userType, deletedAt: null }
-        : { email, usertype, companyId, deletedAt: null };
+        : { email, userType, companyId, deletedAt: null };
 
     const user = await User.findOne(query).populate("companyId", "name email");
 
     if (!user) {
         throw ApiError.notFound(ERROR_MSG.USER_NOT_FOUND);
     }
-
-    // if (userType !== "company") {
-
-    //     const companyList = await User.aggregate([
-    //         {
-    //             $match:
-    //             {
-    //                 email: "krish@gmail.com"
-    //             }
-    //         },
-    //         {
-    //             $lookup:
-    //             {
-    //                 from: "users",
-    //                 localField: "companyId",
-    //                 foreignField: "_id",
-    //                 as: "company"
-    //             }
-    //         },
-    //         {
-    //             $project:
-    //             {
-    //                 email: "$email",
-    //                 companyName: {
-    //                     $first: "$company.name"
-    //                 },
-    //                 companyId: {
-    //                     $first: "$company._id"
-    //                 }
-    //             }
-    //         },
-    //         {
-    //             $addFields:
-    //             {
-    //                 companyDetails: {
-    //                     companyId: "$companyId",
-    //                     companyName: "$companyName"
-    //                 }
-    //             }
-    //         },
-    //         {
-    //             $group:
-    //             {
-    //                 _id: "companyName",
-    //                 companyList: {
-    //                     $push: "$companyDetails"
-    //                 }
-    //             }
-    //         }
-    //     ]);
-
-    //     return sendSuccess(res, SUCCESS_MSG.COMPANY_FOUND, { companyList: { ...companyList[0] } })
-
-    // }
 
     if (!(await user.comparePassword(password))) {
         throw ApiError.unauthorized(ERROR_MSG.INVALID_CREDENTIALS);

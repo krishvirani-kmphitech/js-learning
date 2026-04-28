@@ -1,0 +1,516 @@
+{
+  "info": {
+    "_postman_id": "f07a2b58-ca9e-4737-bb7f-041650dc6b31",
+    "name": "task management",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "50700692",
+    "_collection_link": "https://go.postman.co/collection/50700692-f07a2b58-ca9e-4737-bb7f-041650dc6b31?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "users",
+      "item": [
+        {
+          "name": "get-company-users",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}users?userType=client&page=1&limit=2",
+              "host": [
+                "{{url}}users"
+              ],
+              "query": [
+                {
+                  "key": "userType",
+                  "value": "client"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get-company-users",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}users?userType=client&page=1&limit=2",
+                  "host": [
+                    "{{url}}users"
+                  ],
+                  "query": [
+                    {
+                      "key": "userType",
+                      "value": "client"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "2"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "354"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"162-/6YT9VTrA6Uwc/2mLhgyABFvyfQ\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 28 Apr 2026 10:14:58 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"All company user data fetch successfully\",\n    \"data\": {\n        \"list\": [\n            {\n                \"_id\": \"69eedd7d0b4cba7858872a1f\",\n                \"userType\": \"client\",\n                \"name\": \"raj\",\n                \"email\": \"raj@gmail.com\",\n                \"phoneNumber\": \"98989898\",\n                \"phoneFlag\": \"IN\",\n                \"phoneCode\": \"91\",\n                \"companyId\": \"69eedcaa0b4cba7858872a15\",\n                \"verifiedAt\": null,\n                \"deletedAt\": null,\n                \"__v\": 0\n            }\n        ],\n        \"totalRecords\": 1\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "get-company",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"krish@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}users/company?page=1&limit=2",
+              "host": [
+                "{{url}}users"
+              ],
+              "path": [
+                "company"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get-company",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"krish@gmail.com\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}users/company?page=1&limit=2",
+                  "host": [
+                    "{{url}}users"
+                  ],
+                  "path": [
+                    "company"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "2"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "213"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"d5-Y+ukUqS/arGAtx9+3VBpyphk6/U\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 28 Apr 2026 10:15:46 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Company data fetch successfully\",\n    \"data\": {\n        \"list\": [\n            {\n                \"_id\": \"69eedcaa0b4cba7858872a15\",\n                \"name\": \"nippon\"\n            },\n            {\n                \"_id\": \"69eedcbb0b4cba7858872a17\",\n                \"name\": \"kotak\"\n            }\n        ],\n        \"totalRecords\": 2\n    }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "register user",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"henil@gmail.com\",\r\n    \"userType\": \"client\",\r\n    \"companyId\": \"69eedcbb0b4cba7858872a17\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}auth/register",
+          "host": [
+            "{{url}}auth"
+          ],
+          "path": [
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "verify-user",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"otp\": \"815452\",\r\n    \"name\": \"henil\",\r\n    \"email\": \"henil@gmail.com\",\r\n    \"phoneNumber\": \"98989898\",\r\n    \"phoneFlag\": \"IN\",\r\n    \"phoneCode\": \"91\",\r\n    \"password\": \"password\",\r\n    \"userType\": \"client\",\r\n    // \"availability\": [\"mon\", \"wed\", \"sat\"],\r\n    // \"employmentType\": \"fullTime\",\r\n    // \"maxHoursPerWeek\": 40,\r\n    \"companyId\": \"69eedcbb0b4cba7858872a17\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}auth/register/verify",
+          "host": [
+            "{{url}}auth"
+          ],
+          "path": [
+            "register",
+            "verify"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"nippon@gmail.com\",\r\n    \"userType\": \"company\",\r\n    \"password\": \"1234\"\r\n    // \"companyId\": \"69eedcbb0b4cba7858872a17\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}auth/login",
+          "host": [
+            "{{url}}auth"
+          ],
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "forget-password",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"nippon@gmail.com\",\r\n    \"userType\": \"company\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}auth/forget-password",
+          "host": [
+            "{{url}}auth"
+          ],
+          "path": [
+            "forget-password"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "reset-password",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"otp\": \"697236\",\r\n    \"email\": \"nippon@gmail.com\",\r\n    \"newPassword\": \"1234\",\r\n    \"userType\": \"company\"\r\n    // \"companyId\": \"69eedcaa0b4cba7858872a15\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}auth/reset-password",
+          "host": [
+            "{{url}}auth"
+          ],
+          "path": [
+            "reset-password"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "resend otp",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\r\n    \"otpType\": \"forget-password\",\r\n    // \"otpType\": \"account-registration\",\r\n    \"userId\": \"69eedcaa0b4cba7858872a15\"\r\n\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}auth/resend-otp",
+          "host": [
+            "{{url}}auth"
+          ],
+          "path": [
+            "resend-otp"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "logout",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}auth/logout",
+          "host": [
+            "{{url}}auth"
+          ],
+          "path": [
+            "logout"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "me",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}auth/me",
+          "host": [
+            "{{url}}auth"
+          ],
+          "path": [
+            "me"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete user",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}auth/delete",
+          "host": [
+            "{{url}}auth"
+          ],
+          "path": [
+            "delete"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "url",
+      "value": ""
+    }
+  ]
+}

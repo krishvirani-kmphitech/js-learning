@@ -2,7 +2,7 @@ import { Router } from "express";
 import { deleteUser, forgetPassword, getUser, loginUser, logoutUser, registerUser, resendOtp, resetPassword, verifyUser } from "../controller/auth.controller.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
 import { validate } from "../middleware/validate.middleware.js";
-import { userLoginSchema, userRegisterSchema, forgetPasswordSchema, resendOtpSchema, resetPasswordSchema, verifyUserRegisterSchema } from "../validators/user.valication.js";
+import { userLoginSchema, userRegisterSchema, forgetPasswordSchema, resendOtpSchema, resetPasswordSchema, verifyUserRegisterSchema } from "../validators/auth.valication.js";
 
 const router = Router();
 

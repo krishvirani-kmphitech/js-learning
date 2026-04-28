@@ -12,20 +12,24 @@ const SUCCESS_MSG = {
     LOGOUT_SUCCESS: "Logout successfully done",
     PASSWORD_RESET: "Password reset successfully",
 
-    ALL_COMPANY_FOUND: "All company data get successfully",
-    COMPANY_FOUND: "Company data found successfully",
-
+    ALL_COMPANY_FETCH: "All company data fetch successfully",
+    ALL_COMPANY_USER_FETCH: "All company user data fetch successfully",
+    COMPANY_FETCH: "Company data fetch successfully",
     GUARD_FETCH: "Guard data fetch successfully"
+
 }
 
 const ERROR_MSG = {
     INVALID_CREDENTIALS: "Email or password are wrong",
     INVALID_COMPANY: "Company not exist or not found",
+    INVALID_USER_TYPE: "Invalid UserType",
+    HAVE_NOT_PERMISSSION: "You have not permission to access this",
 
     EMAIL_ALREADY_USED: "Email already used by other user",
 
     USER_NOT_FOUND: "User not found",
     USER_NOT_VERIFY: "User not verified by otp",
+    USER_TYPE_REQUIRED: "UserType is required",
 
     WAIT_FOR_OTP: "Please wait before requesting another OTP",
     TOO_MANY_RESEND_OTP: "OTP limit exceeded. Try again later",

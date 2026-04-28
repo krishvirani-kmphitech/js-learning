@@ -1,6 +1,6 @@
-const validate = (schema) => {
+const validate = (schema, property = "body") => {
     return (req, res, next) => {
-        const { error, value } = schema.validate(req.body, {
+        const { error, value } = schema.validate(req[property], {
             abortEarly: false,
             stripUnknown: true
         });
@@ -13,7 +13,13 @@ const validate = (schema) => {
             });
         }
 
-        req.body = value;
+        if (property === "query") {
+            req.validated = req.validated || {};
+            req.validated[property] = value;
+        } else {
+            req[property] = value;
+        }
+
         next();
     };
 };
