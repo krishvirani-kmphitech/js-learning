@@ -1,0 +1,18 @@
+const OTP_CONFIG = {
+
+    OTP_EXPIRY: 5 * 60 * 1000,
+    OTP_WINDOW_TIME: 10 * 60 * 1000,
+    OTP_COOLDOWN_TIME: 1 * 60 * 1000,
+    OTP_MAX_RESEND_COUNT: 5,
+    OTP_MAX_ATTEMPT: 5,
+
+}
+
+const FLIGHT_CONFIG = {
+    REJECT_PENDING_BOOKING_TIME: 5 * 60 * 1000
+}
+
+export {
+    OTP_CONFIG,
+    FLIGHT_CONFIG
+}

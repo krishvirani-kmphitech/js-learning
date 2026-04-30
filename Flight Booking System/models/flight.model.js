@@ -2,7 +2,7 @@ import mongoose, { Schema, model } from "mongoose";
 
 const flightSchema = new Schema({
 
-    pilot: {
+    pilotId: {
         type: Schema.Types.ObjectId,
         ref: "user",
         required: true
@@ -48,14 +48,30 @@ const flightSchema = new Schema({
     },
     bookedSeat: {
         type: Number,
-        required: true
+        default: 0,
+        validate: {
+            validator: function (bookedSeat) {
+                if (bookedSeat > this.totalSeat - 1) {
+                    return false;
+                }
+            },
+            message: "Flight is full"
+        }
     },
     totalFlightCost: {
         type: Number,
         required: true
+    },
+    status: {
+        type: String,
+        enum: ["pending", "started", "completed"],
+        default: "pending"
     }
 
 }, { timestamps: true });
+
+flightSchema.index({ fromLocation: "2dsphere" });
+flightSchema.index({ toLocation: "2dsphere" });
 
 const flight = model("flight", flightSchema);
 export default flight;
