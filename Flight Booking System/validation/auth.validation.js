@@ -14,10 +14,8 @@ const verifyUserSchema = Joi.object({
     name: Joi.string().required(),
     dob: Joi.date().required(),
     gender: Joi.string().valid("male", "female", "other").required(),
-    location: Joi.object({
-        type: Joi.string().valid("Point").required(),
-        coordinates: Joi.array().items(Joi.number()).min(2).max(2).required()
-    }),
+    long: Joi.number().required().min(-180).max(180),
+    lati: Joi.number().required().min(-90).max(90),
     radius: Joi.number().required(),
     password: Joi.string().required()
 

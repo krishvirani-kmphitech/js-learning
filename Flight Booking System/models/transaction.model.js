@@ -5,7 +5,12 @@ const transactionSchema = new Schema({
     travellerId: {
         type: Schema.Types.ObjectId,
         ref: "user",
-        required: true
+        defualt: 0
+    },
+    pilotId: {
+        type: Schema.Types.ObjectId,
+        ref: "user",
+        defualt: 0
     },
     flightId: {
         type: Schema.Types.ObjectId,
@@ -15,7 +20,7 @@ const transactionSchema = new Schema({
     bookingId: {
         type: Schema.Types.ObjectId,
         ref: "booking",
-        required: true
+        defualt: 0
     },
     flightName: {
         type: String,

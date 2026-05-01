@@ -64,8 +64,11 @@ const flightSchema = new Schema({
     },
     status: {
         type: String,
-        enum: ["pending", "started", "completed"],
+        enum: ["pending", "started", "completed", "cancel"],
         default: "pending"
+    },
+    reason: {
+        type: String
     }
 
 }, { timestamps: true });

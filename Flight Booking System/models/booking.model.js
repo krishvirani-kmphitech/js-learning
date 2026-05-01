@@ -36,20 +36,16 @@ const bookingSchema = new Schema({
         type: Number,
         required: true
     },
-    depositeAmount: {
-        type: Number,
-        required: true
-    },
     refundAmount: {
         type: Number,
         default: 0
     },
     status: {
         type: String,
-        enum: ["pending", "confirm", "cancel", "reject"],
+        enum: ["pending", "confirm", "cancel", "reject", "settled"],
         default: "pending"
     },
-    reasone: {
+    reason: {
         type: String
     }
 

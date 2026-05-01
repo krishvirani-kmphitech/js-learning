@@ -18,7 +18,7 @@ const sendOtp = async (email) => {
 
     if (oldOtp) {
 
-        if (new Date(Date.now() - OTP_CONFIG.OTP_WINDOW_TIME) > new Date(oldOtp.windowStart)) {
+        if (new Date(Date.now() - OTP_CONFIG.OTP_WINDOW_TIME) > oldOtp.windowStart) {
             oldOtp.windowStart = new Date(),
                 oldOtp.resendCount = 0,
                 await oldOtp.save()
@@ -28,7 +28,7 @@ const sendOtp = async (email) => {
             throw ApiError.tooManyRequest(ERROR_MSG.OTP_REQUEST_TOO_MANY)
         }
 
-        if (new Date(Date.now() - OTP_CONFIG.OTP_COOLDOWN_TIME) < new Date(oldOtp.createdAt)) {
+        if (new Date(Date.now() - OTP_CONFIG.OTP_COOLDOWN_TIME) < oldOtp.createdAt) {
             throw ApiError.tooManyRequest(ERROR_MSG.OTP_REQUEST_TOO_MANY)
         }
 
@@ -49,18 +49,29 @@ const sendOtp = async (email) => {
 
 const verifyOtp = async (res, otp, email) => {
 
-    const otpRecord = await Otp.findOne({ otp, email });
-
-    if (!otpRecord) {
-        throw ApiError.badRequest(ERROR_MSG.OTP_NOT_GENERATE_OR_INVALID);
+    const userExist = await User.findOne({ email, deletedAt: null });
+    if (userExist) {
+        throw ApiError.badRequest(ERROR_MSG.USER_ALREADY_VERIFIED)
     }
 
-    if (new Date(Date.now() - OTP_CONFIG.OTP_EXPIRY) > new Date(otpRecord.createdAt)) {
+    const otpRecord = await Otp.findOne({ email });
+
+    if (!otpRecord) {
+        throw ApiError.badRequest(ERROR_MSG.OTP_NOT_GENERATED);
+    }
+
+    if (new Date(Date.now() - OTP_CONFIG.OTP_EXPIRY) > otpRecord.createdAt) {
         throw ApiError.unauthorized(ERROR_MSG.OTP_IS_EXPIRE);
     }
 
     if (otpRecord.attempt >= OTP_CONFIG.OTP_MAX_ATTEMPT) {
         throw ApiError.badRequest(ERROR_MSG.OTP_ATTEMPT_TOO_MANY);
+    }
+
+    if (otpRecord.otp !== otp) {
+        otpRecord.attempt += 1;
+        await otpRecord.save()
+        throw ApiError.badRequest(ERROR_MSG.OTP_INVALID)
     }
 
     await Otp.findByIdAndDelete(otpRecord._id);
@@ -89,17 +100,32 @@ const registerUser = asyncHandler(async (req, res) => {
 
 const verifyUser = asyncHandler(async (req, res) => {
 
-    const { otp, email, userType, name, dob, gender, location, radius, password } = req.body;
+    const { otp, email, userType, name, dob, gender, long, lati, radius, password } = req.body;
+
+    const userExist = await User.findOne({ email, deletedAt: null });
+
+    if (userExist) {
+        return res
+            .status(STATUS_CODE.BAD_REQUEST)
+            .json(new ApiResponse(STATUS_CODE.BAD_REQUEST, ERROR_MSG.USER_ALREADY_EXIST));
+    }
 
     await verifyOtp(res, otp, email);
 
-    await User.create({
+    const location = {
+        type: "Point",
+        coordinates: [long, lati]
+    };
+
+    const user = await User.create({
         email, userType, name, dob, gender, location, radius, password
     });
 
+    const { password: pwd, deletedAt, createdAt, updatedAt, __v, ...clearUser } = user._doc;
+
     return res
         .status(STATUS_CODE.CREATED)
-        .json(new ApiResponse(STATUS_CODE.CREATED, SUCCESS_MSG.USER_CREATED))
+        .json(new ApiResponse(STATUS_CODE.CREATED, SUCCESS_MSG.USER_CREATED, clearUser))
 
 });
 
@@ -146,8 +172,18 @@ const loginUser = asyncHandler(async (req, res) => {
 
 });
 
+const logoutUser = asyncHandler(async (req, res) => {
+
+    return res
+        .clearCookie("token")
+        .status(STATUS_CODE.OK)
+        .json(new ApiResponse(STATUS_CODE.OK, SUCCESS_MSG.LOGOUT_SUCCESS));
+
+});
+
 export {
     registerUser,
     verifyUser,
-    loginUser
+    loginUser,
+    logoutUser
 };

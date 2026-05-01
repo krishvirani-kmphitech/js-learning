@@ -20,14 +20,12 @@ const addFlightSchema = Joi.object({
             return value
         }),
 
-    toLocation: Joi.object({
-        type: Joi.string().valid("Point").required(),
-        coordinates: Joi.array().items(Joi.number()).min(2).max(2).required()
-    }),
-    fromLocation: Joi.object({
-        type: Joi.string().valid("Point").required(),
-        coordinates: Joi.array().items(Joi.number()).min(2).max(2).required()
-    }),
+    toLong: Joi.number().required().min(-180).max(180),
+    toLati: Joi.number().required().min(-90).max(90),
+
+    fromLong: Joi.number().required().min(-180).max(180),
+    fromLati: Joi.number().required().min(-90).max(90),
+
     totalSeat: Joi.number().min(2).required(),
     totalFlightCost: Joi.number().required()
 });

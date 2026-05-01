@@ -4,7 +4,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cookieParser from 'cookie-parser';
 
-import cronJob from './services/cronJob.services.js';
+import { cronJob } from './services/cronJob.services.js';
 
 import connectDB from './config/db.js';
 import { routeNotFound, globleErrorHandler } from './utils/errorHandler.js';
@@ -15,13 +15,14 @@ import bookingRoute from "./routers/booking.router.js";
 
 const app = express();
 
-
-cronJob();
+// CRON JOBS
+cronJob()
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+// API routes
 app.use("/auth", userRoute);
 app.use("/flight", flightRoute);
 app.use("/booking", bookingRoute);

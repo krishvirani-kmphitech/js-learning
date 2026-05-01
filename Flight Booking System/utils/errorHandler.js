@@ -10,7 +10,7 @@ const routeNotFound = () => {
 
 const globleErrorHandler = () => {
     return (err, req, res, next) => {
-        console.error(err);
+        // console.error(err);
         return res
             .status(err.statusCode || 500)
             .json(new ApiResponse(err.statusCode || 500, err.message || "Internal Server Error"));
