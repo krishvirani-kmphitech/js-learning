@@ -37,6 +37,24 @@ const addFlight = asyncHandler(async (req, res) => {
 
 });
 
+const getFlightForPilot = asyncHandler(async (req, res) => {
+
+    const pilotId = req.user._id;
+
+    const flightList = await Flight.find({ pilotId }).select("-createdAt -updatedAt -__v");
+
+    if (flightList.length === 0) {
+        return res
+            .status(STATUS_CODE.NOT_FOUND)
+            .json(new ApiResponse(STATUS_CODE.NOT_FOUND, ERROR_MSG.FLIGHT_NOT_FOUND));
+    }
+
+    return res
+        .status(STATUS_CODE.OK)
+        .json(new ApiResponse(STATUS_CODE.OK, SUCCESS_MSG.FLIGHT_DATA_FETCH, { list: flightList }));
+
+});
+
 const getFlight = asyncHandler(async (req, res) => {
 
     const flightList = await Flight.find
@@ -128,7 +146,7 @@ const getFlightDetails = asyncHandler(async (req, res) => {
         seatPrices[i] = (flight.totalFlightCost / (i + 1)).toFixed(2);
     }
 
-    flightDetails.NoOfSeatPrices = seatPrices;
+    flightDetails.seatPrices = seatPrices;
 
     return res
         .status(STATUS_CODE.OK)
@@ -138,6 +156,7 @@ const getFlightDetails = asyncHandler(async (req, res) => {
 
 export {
     addFlight,
+    getFlightForPilot,
     getFlight,
     getFlightDetails,
     getFlightNearMe

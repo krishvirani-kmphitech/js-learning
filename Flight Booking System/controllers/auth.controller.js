@@ -47,7 +47,7 @@ const sendOtp = async (email) => {
 
 }
 
-const verifyOtp = async (res, otp, email) => {
+const verifyOtp = async (otp, email) => {
 
     const userExist = await User.findOne({ email, deletedAt: null });
     if (userExist) {
@@ -110,7 +110,7 @@ const verifyUser = asyncHandler(async (req, res) => {
             .json(new ApiResponse(STATUS_CODE.BAD_REQUEST, ERROR_MSG.USER_ALREADY_EXIST));
     }
 
-    await verifyOtp(res, otp, email);
+    await verifyOtp(otp, email);
 
     const location = {
         type: "Point",
@@ -147,6 +147,12 @@ const loginUser = asyncHandler(async (req, res) => {
         return res
             .status(STATUS_CODE.UNAUTHORIZED)
             .json(new ApiResponse(STATUS_CODE.UNAUTHORIZED, ERROR_MSG.INVALID_USER_CREDENTIALS))
+    }
+
+    if (!process.env.JWT_KEY) {
+        return res
+            .status(STATUS_CODE.SERVER_ERROR)
+            .json(new ApiResponse(STATUS_CODE.SERVER_ERROR, ERROR_MSG.JWT_KEY_MISSING))
     }
 
     const token = await jwt.sign(

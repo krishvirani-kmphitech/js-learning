@@ -35,7 +35,6 @@ const flightBooking = asyncHandler(async (req, res, next) => {
         status: "pending"
     });
 
-
     if (isBookingExistInPending) {
 
         const { createdAt, updatedAt, __v, finalSeatPrice, ...cleanIsBookingExistInPending } = isBookingExistInPending._doc;
@@ -44,7 +43,6 @@ const flightBooking = asyncHandler(async (req, res, next) => {
             .status(STATUS_CODE.BAD_REQUEST)
             .json(new ApiResponse(STATUS_CODE.BAD_REQUEST, ERROR_MSG.BOOKING_FOUND_IN_PENDING, cleanIsBookingExistInPending));
     }
-
 
     // check seats available or not
     const availableSeat = flight.totalSeat - (flight.bookedSeat + 1);
@@ -81,7 +79,7 @@ const flightBooking = asyncHandler(async (req, res, next) => {
         await session.commitTransaction();
         session.endSession();
 
-        const { createdAt, updatedAt, __v, finalSeatPrice, ...cleanBooking } = booking._doc;
+        const { createdAt, updatedAt, __v, finalSeatPrice, ...cleanBooking } = booking[0]._doc;
 
         return res
             .status(STATUS_CODE.CREATED)
@@ -129,7 +127,7 @@ const flightBookingPayment = asyncHandler(async (req, res, next) => {
 
         session.startTransaction();
 
-        const tranasction = await Transaction.create([{
+        const transaction = await Transaction.create([{
             travellerId: userId,
             flightId: booking.flightId,
             bookingId: booking._id,
@@ -146,9 +144,11 @@ const flightBookingPayment = asyncHandler(async (req, res, next) => {
         await session.commitTransaction();
         session.endSession();
 
+        const { createdAt, updatedAt, __v, ...cleanTransaction } = transaction[0]._doc;
+
         return res
             .status(STATUS_CODE.OK)
-            .json(new ApiResponse(STATUS_CODE.OK, SUCCESS_MSG.PAYMENT_DONE_BOOKING_CONFIRM, tranasction));
+            .json(new ApiResponse(STATUS_CODE.OK, SUCCESS_MSG.PAYMENT_DONE_BOOKING_CONFIRM, cleanTransaction));
 
     } catch (error) {
 
@@ -166,9 +166,11 @@ const listFlightBooking = asyncHandler(async (req, res) => {
 
     const userId = req.user._id;
 
-    const bookingList = await Booking.find({
-        travellerId: userId
-    });
+    const bookingList = await Booking.find
+        ({
+            travellerId: userId
+        })
+        .select("-finalSeatPrice -createdAt -updatedAt -__v");
 
     return res
         .status(STATUS_CODE.OK)
@@ -177,7 +179,7 @@ const listFlightBooking = asyncHandler(async (req, res) => {
 });
 
 // booking/:bookingId/cancel
-const cancelFlightBooking = asyncHandler(async (req, res) => {
+const cancelFlightBooking = asyncHandler(async (req, res, next) => {
 
     const { bookingId } = req.params;
     const userId = req.user._id;
@@ -190,21 +192,21 @@ const cancelFlightBooking = asyncHandler(async (req, res) => {
     if (!booking) {
         return res
             .status(STATUS_CODE.NOT_FOUND)
-            .json(new ApiResponse(STATUS_CODE.NOT_FOUND, SUCCESS_MSG.BOOKING_NOT_FOUND));
+            .json(new ApiResponse(STATUS_CODE.NOT_FOUND, ERROR_MSG.BOOKING_NOT_FOUND));
     }
 
-    if (booking.status === "cancel" || booking.status === "reject") {
-        return res
-            .status(STATUS_CODE.BAD_REQUEST)
-            .json(new ApiResponse(STATUS_CODE.BAD_REQUEST, ERROR_MSG.BOOKING_IS_ALREADY_CANCEL));
-    }
-    else if (booking.status === "confirm") {
+    const session = await mongoose.startSession();
 
-        const session = await mongoose.startSession();
+    try {
 
-        try {
+        session.startTransaction();
 
-            session.startTransaction();
+        if (booking.status === "cancel" || booking.status === "reject") {
+            return res
+                .status(STATUS_CODE.BAD_REQUEST)
+                .json(new ApiResponse(STATUS_CODE.BAD_REQUEST, ERROR_MSG.BOOKING_IS_ALREADY_CANCEL));
+        }
+        else if (booking.status === "confirm") {
 
             // make refund
             await Transaction.create([{
@@ -229,41 +231,42 @@ const cancelFlightBooking = asyncHandler(async (req, res) => {
                 { session }
             );
 
-            await session.commitTransaction();
-            session.endSession();
+        }
+        else if (booking.status === "pending") {
 
-        } catch (error) {
-
-            await session.abortTransaction();
-            session.endSession();
-            next(error);
+            // change booking status
+            await Booking.findByIdAndUpdate(
+                booking._id,
+                {
+                    $set: {
+                        status: "cancel",
+                        reason: "cancel by traveller"
+                    }
+                },
+                { session }
+            );
 
         }
 
+        // decress booking seat in flight
+        const flight = await Flight.findById(booking.flightId);
+        flight.bookedSeat -= booking.numberOfSeat;
+        await flight.save({ session });
+
+        await session.commitTransaction();
+        session.endSession();
+
+        return res
+            .status(STATUS_CODE.OK)
+            .json(new ApiResponse(STATUS_CODE.OK, SUCCESS_MSG.BOOKING_CANCEL_SUCCESSFULLY))
+
+    } catch (error) {
+
+        await session.abortTransaction();
+        session.endSession();
+        next(error);
+
     }
-    else if (booking.status === "pending") {
-
-        // change booking status
-        await Booking.findByIdAndUpdate(
-            booking._id,
-            {
-                $set: {
-                    status: "cancel",
-                    reason: "cancel by traveller"
-                }
-            }
-        );
-
-    }
-
-    // decress booking seat in flight
-    const flight = await Flight.findById(booking.flightId);
-    flight.bookedSeat -= booking.numberOfSeat;
-    await flight.save();
-
-    return res
-        .status(STATUS_CODE.OK)
-        .json(new ApiResponse(STATUS_CODE.OK, SUCCESS_MSG.BOOKING_CANCEL_SUCCESSFULLY))
 
 });
 

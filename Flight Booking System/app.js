@@ -7,7 +7,7 @@ import cookieParser from 'cookie-parser';
 import { cronJob } from './services/cronJob.services.js';
 
 import connectDB from './config/db.js';
-import { routeNotFound, globleErrorHandler } from './utils/errorHandler.js';
+import { routeNotFound, globalErrorHandler } from './utils/errorHandler.js';
 
 import userRoute from "./routers/auth.router.js";
 import flightRoute from "./routers/flight.router.js";
@@ -16,7 +16,7 @@ import bookingRoute from "./routers/booking.router.js";
 const app = express();
 
 // CRON JOBS
-cronJob()
+cronJob();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -34,11 +34,10 @@ app.get("/", (req, res) => {
 // route not found
 app.use(routeNotFound());
 // globle error handler
-app.use(globleErrorHandler());
+app.use(globalErrorHandler());
 
 // database connection
 await connectDB();
-
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {

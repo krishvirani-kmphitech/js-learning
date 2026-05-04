@@ -8,7 +8,7 @@ const routeNotFound = () => {
     }
 }
 
-const globleErrorHandler = () => {
+const globalErrorHandler = () => {
     return (err, req, res, next) => {
         // console.error(err);
         return res
@@ -19,5 +19,5 @@ const globleErrorHandler = () => {
 
 export {
     routeNotFound,
-    globleErrorHandler
+    globalErrorHandler
 };

@@ -54,6 +54,7 @@ const flightSchema = new Schema({
                 if (bookedSeat > this.totalSeat - 1) {
                     return false;
                 }
+                return true;
             },
             message: "Flight is full"
         }

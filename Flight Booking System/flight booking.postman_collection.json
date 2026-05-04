@@ -1,0 +1,1174 @@
+{
+  "info": {
+    "_postman_id": "e9644add-162e-46ab-9451-bf47bc1db87a",
+    "name": "flight booking",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "50700692",
+    "_collection_link": "https://go.postman.co/collection/50700692-e9644add-162e-46ab-9451-bf47bc1db87a?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "register user",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"raj@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}auth/register",
+              "host": [
+                "{{url}}auth"
+              ],
+              "path": [
+                "register"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "register user",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"raj@gmail.com\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}auth/register",
+                  "host": [
+                    "{{url}}auth"
+                  ],
+                  "path": [
+                    "register"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "79"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"4f-/nNdBQEXWCDyyqwm7wP4piQLwmQ\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 01 May 2026 08:46:37 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"OTP send successfully\",\n    \"data\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "verify user",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"otp\": 4769,\r\n    \"email\": \"raj@gmail.com\",\r\n    \"userType\": \"traveller\",\r\n    \"name\": \"raj\",\r\n    \"dob\": \"2006-01-13\",\r\n    \"gender\": \"male\",\r\n    \"long\": 146.02,\r\n    \"lati\": 38.03, \r\n    \"radius\": \"5000\",\r\n    \"password\": \"password\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}auth/register/verify",
+              "host": [
+                "{{url}}auth"
+              ],
+              "path": [
+                "register",
+                "verify"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "verify user",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"otp\": 5930,\r\n    \"email\": \"parth@gmail.com\",\r\n    \"userType\": \"traveller\",\r\n    \"name\": \"parth\",\r\n    \"dob\": \"2006-01-13\",\r\n    \"gender\": \"male\",\r\n    \"long\": 146.02,\r\n    \"lati\": 38.03,\r\n    \"radius\": \"5000\",\r\n    \"password\": \"password\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}auth/register/verify",
+                  "host": [
+                    "{{url}}auth"
+                  ],
+                  "path": [
+                    "register",
+                    "verify"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "297"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"129-v+z+uUpHjlaqsE8YEHHmwCAEtf8\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 01 May 2026 12:25:51 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"statusCode\": 201,\n    \"message\": \"User created successfully\",\n    \"data\": {\n        \"userType\": \"traveller\",\n        \"name\": \"parth\",\n        \"email\": \"parth@gmail.com\",\n        \"dob\": \"2006-01-13T00:00:00.000Z\",\n        \"gender\": \"male\",\n        \"location\": {\n            \"type\": \"Point\",\n            \"coordinates\": [\n                146.02,\n                38.03\n            ]\n        },\n        \"radius\": 5000,\n        \"_id\": \"69f49bcf5330927ecd033ed1\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"krish@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}auth/login",
+              "host": [
+                "{{url}}auth"
+              ],
+              "path": [
+                "login"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "login",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"aryan@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}auth/login",
+                  "host": [
+                    "{{url}}auth"
+                  ],
+                  "path": [
+                    "login"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWY0NDAxMDU2ZThjNGViNzllYTRlMDYiLCJ1c2VyVHlwZSI6InBpbG90IiwiaWF0IjoxNzc3NjE1NTI0LCJleHAiOjE3Nzc4NzQ3MjR9.zvYrt81pnUYwsZfv5IT4USOtXNLC9NXtF9L9j-0mJsg; Max-Age=259200; Path=/; Expires=Mon, 04 May 2026 06:05:24 GMT; HttpOnly"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "81"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"51-q5YoQpiYEFKASNfiTFQUbYguDP0\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 01 May 2026 06:05:24 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Login successfully done\",\n    \"data\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"amount\": 5000\r\n}"
+            },
+            "url": {
+              "raw": "{{url}}auth/logout",
+              "host": [
+                "{{url}}auth"
+              ],
+              "path": [
+                "logout"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "logout",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"amount\": 5000\r\n}"
+                },
+                "url": {
+                  "raw": "{{url}}auth/logout",
+                  "host": [
+                    "{{url}}auth"
+                  ],
+                  "path": [
+                    "logout"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "82"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"52-ce2scxXoMupqx3IPc1t9HgvCyK8\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 01 May 2026 06:05:34 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Logout successfully done\",\n    \"data\": null\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "flight",
+      "item": [
+        {
+          "name": "add flight",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"IndiGo\",\r\n    \"startTime\": \"2026-05-01T14:30\",\r\n    \"endTime\": \"2026-05-01T14:40\",\r\n    \"toLong\": 146.05,\r\n    \"toLati\": 38.01,\r\n    \"fromLong\": 143.4,\r\n    \"fromLati\": 38.9,\r\n    \"totalSeat\": 5,\r\n    \"totalFlightCost\": 5000\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}flight/",
+              "host": [
+                "{{url}}flight"
+              ],
+              "path": [
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "add flight",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"IndiGo\",\r\n    \"startTime\": \"2026-05-04T14:30\",\r\n    \"endTime\": \"2026-05-04T14:40\",\r\n    \"toLong\": 146.05,\r\n    \"toLati\": 38.01,\r\n    \"fromLong\": 143.4,\r\n    \"fromLati\": 38.9,\r\n    \"totalSeat\": 5,\r\n    \"totalFlightCost\": 5000\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}flight/",
+                  "host": [
+                    "{{url}}flight"
+                  ],
+                  "path": [
+                    ""
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "433"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"1b1-to7qA2VS2Z6zPcq4sd9085b7C4Y\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 04 May 2026 05:02:53 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"statusCode\": 201,\n    \"message\": \"Flight successfully created\",\n    \"data\": {\n        \"pilotId\": \"69f4677443ee1cf38e49f5ea\",\n        \"name\": \"IndiGo\",\n        \"startTime\": \"2026-05-04T09:00:00.000Z\",\n        \"endTime\": \"2026-05-04T09:10:00.000Z\",\n        \"toLocation\": {\n            \"type\": \"Point\",\n            \"coordinates\": [\n                146.05,\n                38.01\n            ]\n        },\n        \"fromLocation\": {\n            \"type\": \"Point\",\n            \"coordinates\": [\n                143.4,\n                38.9\n            ]\n        },\n        \"totalSeat\": 5,\n        \"bookedSeat\": 0,\n        \"totalFlightCost\": 5000,\n        \"status\": \"pending\",\n        \"_id\": \"69f8287d79166f0645bd6d57\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "get flight for pilot",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"IndiGo\",\r\n    \"startTime\": \"2026-05-01T14:30\",\r\n    \"endTime\": \"2026-05-01T14:40\",\r\n    \"toLong\": 146.05,\r\n    \"toLati\": 38.01,\r\n    \"fromLong\": 143.4,\r\n    \"fromLati\": 38.9,\r\n    \"totalSeat\": 5,\r\n    \"totalFlightCost\": 5000\r\n}"
+            },
+            "url": {
+              "raw": "{{url}}flight/pilot",
+              "host": [
+                "{{url}}flight"
+              ],
+              "path": [
+                "pilot"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get flight for pilot",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"IndiGo\",\r\n    \"startTime\": \"2026-05-01T14:30\",\r\n    \"endTime\": \"2026-05-01T14:40\",\r\n    \"toLong\": 146.05,\r\n    \"toLati\": 38.01,\r\n    \"fromLong\": 143.4,\r\n    \"fromLati\": 38.9,\r\n    \"totalSeat\": 5,\r\n    \"totalFlightCost\": 5000\r\n}"
+                },
+                "url": {
+                  "raw": "{{url}}flight/pilot",
+                  "host": [
+                    "{{url}}flight"
+                  ],
+                  "path": [
+                    "pilot"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "447"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"1bf-Ns2qRAI9jvkBEuI7Lzxy1m7W9Mc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 04 May 2026 05:15:57 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Flight data fetch successfully\",\n    \"data\": {\n        \"list\": [\n            {\n                \"toLocation\": {\n                    \"type\": \"Point\",\n                    \"coordinates\": [\n                        146.05,\n                        38.01\n                    ]\n                },\n                \"fromLocation\": {\n                    \"type\": \"Point\",\n                    \"coordinates\": [\n                        143.4,\n                        38.9\n                    ]\n                },\n                \"_id\": \"69f8287d79166f0645bd6d57\",\n                \"pilotId\": \"69f4677443ee1cf38e49f5ea\",\n                \"name\": \"IndiGo\",\n                \"startTime\": \"2026-05-04T09:00:00.000Z\",\n                \"endTime\": \"2026-05-04T09:10:00.000Z\",\n                \"totalSeat\": 5,\n                \"bookedSeat\": 0,\n                \"totalFlightCost\": 5000,\n                \"status\": \"pending\"\n            }\n        ]\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "get flight",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"AirInd\",\r\n    \"startTime\": \"2026-04-21\",\r\n    \"endTime\": \"2026-04-29\",\r\n    \"toLocation\": {\r\n        \"type\": \"Point\",\r\n        \"coordinates\": [32.2, 76.9]\r\n    },\r\n    \"fromLocation\": {\r\n        \"type\": \"Point\",\r\n        \"coordinates\": [32.2, 76.9]\r\n    },\r\n    \"totalSeat\": 4,\r\n    \"totalFlightCost\": 10000\r\n}"
+            },
+            "url": {
+              "raw": "{{url}}flight/",
+              "host": [
+                "{{url}}flight"
+              ],
+              "path": [
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get flight",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"AirInd\",\r\n    \"startTime\": \"2026-04-21\",\r\n    \"endTime\": \"2026-04-29\",\r\n    \"toLocation\": {\r\n        \"type\": \"Point\",\r\n        \"coordinates\": [32.2, 76.9]\r\n    },\r\n    \"fromLocation\": {\r\n        \"type\": \"Point\",\r\n        \"coordinates\": [32.2, 76.9]\r\n    },\r\n    \"totalSeat\": 4,\r\n    \"totalFlightCost\": 10000\r\n}"
+                },
+                "url": {
+                  "raw": "{{url}}flight/",
+                  "host": [
+                    "{{url}}flight"
+                  ],
+                  "path": [
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "688"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2b0-3YGiVinF3WBpHaJwB18vXdjMKGw\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 04 May 2026 05:15:23 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Flight data fetch successfully\",\n    \"data\": {\n        \"list\": [\n            {\n                \"toLocation\": {\n                    \"type\": \"Point\",\n                    \"coordinates\": [\n                        146.05,\n                        38.01\n                    ]\n                },\n                \"fromLocation\": {\n                    \"type\": \"Point\",\n                    \"coordinates\": [\n                        143.4,\n                        38.9\n                    ]\n                },\n                \"_id\": \"69f8287d79166f0645bd6d57\",\n                \"name\": \"IndiGo\",\n                \"startTime\": \"2026-05-04T09:00:00.000Z\",\n                \"endTime\": \"2026-05-04T09:10:00.000Z\",\n                \"bookedSeat\": 0,\n                \"status\": \"pending\",\n                \"availableSeat\": 4\n            },\n            {\n                \"toLocation\": {\n                    \"type\": \"Point\",\n                    \"coordinates\": [\n                        146.05,\n                        38.01\n                    ]\n                },\n                \"fromLocation\": {\n                    \"type\": \"Point\",\n                    \"coordinates\": [\n                        143.4,\n                        38.9\n                    ]\n                },\n                \"_id\": \"69f82b1ff3c72e7b801ebd0d\",\n                \"name\": \"IndiGo\",\n                \"startTime\": \"2026-05-04T11:00:00.000Z\",\n                \"endTime\": \"2026-05-04T11:10:00.000Z\",\n                \"bookedSeat\": 0,\n                \"status\": \"pending\",\n                \"availableSeat\": 4\n            }\n        ]\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "get flight details",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}flight/:flightId",
+              "host": [
+                "{{url}}flight"
+              ],
+              "path": [
+                ":flightId"
+              ],
+              "variable": [
+                {
+                  "key": "flightId",
+                  "value": "69f491b10798ce9320712e34"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get flight details",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}flight/:flightId",
+                  "host": [
+                    "{{url}}flight"
+                  ],
+                  "path": [
+                    ":flightId"
+                  ],
+                  "variable": [
+                    {
+                      "key": "flightId",
+                      "value": "69f8287d79166f0645bd6d57"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "451"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"1c3-gPixrkcvdKWoyxU+j/agnq9SeAg\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 04 May 2026 05:16:33 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Flight data fetch successfully\",\n    \"data\": {\n        \"toLocation\": {\n            \"type\": \"Point\",\n            \"coordinates\": [\n                146.05,\n                38.01\n            ]\n        },\n        \"fromLocation\": {\n            \"type\": \"Point\",\n            \"coordinates\": [\n                143.4,\n                38.9\n            ]\n        },\n        \"_id\": \"69f8287d79166f0645bd6d57\",\n        \"name\": \"IndiGo\",\n        \"startTime\": \"2026-05-04T09:00:00.000Z\",\n        \"endTime\": \"2026-05-04T09:10:00.000Z\",\n        \"bookedSeat\": 0,\n        \"status\": \"pending\",\n        \"availableSeat\": 4,\n        \"seatPrices\": {\n            \"1\": \"2500.00\",\n            \"2\": \"1666.67\",\n            \"3\": \"1250.00\",\n            \"4\": \"1000.00\"\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "get flight near me",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}flight/near-me",
+              "host": [
+                "{{url}}flight"
+              ],
+              "path": [
+                "near-me"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get flight near me",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}flight/near-me",
+                  "host": [
+                    "{{url}}flight"
+                  ],
+                  "path": [
+                    "near-me"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "688"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2b0-3YGiVinF3WBpHaJwB18vXdjMKGw\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 04 May 2026 05:17:44 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Flight data fetch successfully\",\n    \"data\": {\n        \"list\": [\n            {\n                \"toLocation\": {\n                    \"type\": \"Point\",\n                    \"coordinates\": [\n                        146.05,\n                        38.01\n                    ]\n                },\n                \"fromLocation\": {\n                    \"type\": \"Point\",\n                    \"coordinates\": [\n                        143.4,\n                        38.9\n                    ]\n                },\n                \"_id\": \"69f8287d79166f0645bd6d57\",\n                \"name\": \"IndiGo\",\n                \"startTime\": \"2026-05-04T09:00:00.000Z\",\n                \"endTime\": \"2026-05-04T09:10:00.000Z\",\n                \"bookedSeat\": 0,\n                \"status\": \"pending\",\n                \"availableSeat\": 4\n            },\n            {\n                \"toLocation\": {\n                    \"type\": \"Point\",\n                    \"coordinates\": [\n                        146.05,\n                        38.01\n                    ]\n                },\n                \"fromLocation\": {\n                    \"type\": \"Point\",\n                    \"coordinates\": [\n                        143.4,\n                        38.9\n                    ]\n                },\n                \"_id\": \"69f82b1ff3c72e7b801ebd0d\",\n                \"name\": \"IndiGo\",\n                \"startTime\": \"2026-05-04T11:00:00.000Z\",\n                \"endTime\": \"2026-05-04T11:10:00.000Z\",\n                \"bookedSeat\": 0,\n                \"status\": \"pending\",\n                \"availableSeat\": 4\n            }\n        ]\n    }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "booking",
+      "item": [
+        {
+          "name": "flight booking",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"seats\": 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}booking/:flightId",
+              "host": [
+                "{{url}}booking"
+              ],
+              "path": [
+                ":flightId"
+              ],
+              "variable": [
+                {
+                  "key": "flightId",
+                  "value": "69f8287d79166f0645bd6d57"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "flight booking",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"seats\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}booking/:flightId",
+                  "host": [
+                    "{{url}}booking"
+                  ],
+                  "path": [
+                    ":flightId"
+                  ],
+                  "variable": [
+                    {
+                      "key": "flightId",
+                      "value": "69f4996cf0e014d72edabef0"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "366"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"16e-QeThXC/BDgDdpcJdVob/0qZcIaM\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 04 May 2026 03:52:25 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"statusCode\": 201,\n    \"message\": \"Booking order placed, now make payment to confirm your seats\",\n    \"data\": {\n        \"travellerId\": \"69f4684e3778765b38c922f7\",\n        \"flightId\": \"69f4996cf0e014d72edabef0\",\n        \"flightName\": \"Air India\",\n        \"numberOfSeat\": 1,\n        \"estimatedSeatPrice\": 2500,\n        \"paidAmount\": 0,\n        \"unpaidAmount\": 2500,\n        \"refundAmount\": 0,\n        \"status\": \"pending\",\n        \"_id\": \"69f817f907afc027e46bc1f6\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "flight booking payment",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"amount\": 3333.34\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}booking/:bookingId/payment",
+              "host": [
+                "{{url}}booking"
+              ],
+              "path": [
+                ":bookingId",
+                "payment"
+              ],
+              "variable": [
+                {
+                  "key": "bookingId",
+                  "value": "69f82c33931109fff373cfc1"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "flight booking payment",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"amount\": 3333.34\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}booking/:bookingId/payment",
+                  "host": [
+                    "{{url}}booking"
+                  ],
+                  "path": [
+                    ":bookingId",
+                    "payment"
+                  ],
+                  "variable": [
+                    {
+                      "key": "bookingId",
+                      "value": "69f82c33931109fff373cfc1"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "296"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"128-x0smrUuXPcRB6K7gUOe4qXbskZM\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 04 May 2026 05:19:31 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Payment done, your booking now confirm\",\n    \"data\": {\n        \"travellerId\": \"69f467cc43ee1cf38e49f5ec\",\n        \"flightId\": \"69f8287d79166f0645bd6d57\",\n        \"bookingId\": \"69f82c33931109fff373cfc1\",\n        \"flightName\": \"IndiGo\",\n        \"type\": \"pay\",\n        \"amount\": 3333.34,\n        \"_id\": \"69f82c63931109fff373cfc2\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "my booking list",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}booking/me",
+              "host": [
+                "{{url}}booking"
+              ],
+              "path": [
+                "me"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "my booking list",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}booking/me",
+                  "host": [
+                    "{{url}}booking"
+                  ],
+                  "path": [
+                    "me"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "645"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"285-zPZrggbUPZwPQmXcaI7OnT8F58Q\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 04 May 2026 04:00:43 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Your booking data fetch successfully\",\n    \"data\": {\n        \"list\": [\n            {\n                \"_id\": \"69f817f907afc027e46bc1f6\",\n                \"travellerId\": \"69f4684e3778765b38c922f7\",\n                \"flightId\": \"69f4996cf0e014d72edabef0\",\n                \"flightName\": \"Air India\",\n                \"numberOfSeat\": 1,\n                \"estimatedSeatPrice\": 2500,\n                \"paidAmount\": 2500,\n                \"unpaidAmount\": 0,\n                \"refundAmount\": 2500,\n                \"status\": \"cancel\",\n                \"reason\": \"cancel by traveller\"\n            },\n            {\n                \"_id\": \"69f8194d6f67e389c17c85cd\",\n                \"travellerId\": \"69f4684e3778765b38c922f7\",\n                \"flightId\": \"69f4996cf0e014d72edabef0\",\n                \"flightName\": \"Air India\",\n                \"numberOfSeat\": 2,\n                \"estimatedSeatPrice\": 1666.67,\n                \"paidAmount\": 3333.34,\n                \"unpaidAmount\": 0,\n                \"refundAmount\": 0,\n                \"status\": \"confirm\"\n            }\n        ]\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "cancel flight booking",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{url}}booking/:bookingId/cancel",
+              "host": [
+                "{{url}}booking"
+              ],
+              "path": [
+                ":bookingId",
+                "cancel"
+              ],
+              "variable": [
+                {
+                  "key": "bookingId",
+                  "value": "69f41fdfbedb1a8a9f921d35"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "cancel flight booking",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}booking/:bookingId/cancel",
+                  "host": [
+                    "{{url}}booking"
+                  ],
+                  "path": [
+                    ":bookingId",
+                    "cancel"
+                  ],
+                  "variable": [
+                    {
+                      "key": "bookingId",
+                      "value": "69f448de2d130e9817ae3713"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "85"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"55-+coL7DGcUcWUEy654PCxJ7s5y0A\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 01 May 2026 06:34:33 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Booking cancel successfully\",\n    \"data\": null\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "url",
+      "value": ""
+    }
+  ]
+}

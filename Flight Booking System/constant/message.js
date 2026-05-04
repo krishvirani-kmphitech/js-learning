@@ -11,9 +11,8 @@ const SUCCESS_MSG = {
     FLIGHT_DATA_FETCH: "Flight data fetch successfully",
 
     BOOKING_DATA_FETCH: "Your booking data fetch successfully",
-    BOOKING_CREATED_CONFIRM_PAYMENT: "Booking order placed, now make payment to confirm your seats",
+    BOOKING_CREATED_CONFIRM_PAYMENT: "Booking order placed, now make payment to confirm your seats in 5 min",
     BOOKING_CANCEL_SUCCESSFULLY: "Booking cancel successfully",
-    BOOKING_NOT_FOUND: "Booking not found",
     PAYMENT_DONE_BOOKING_CONFIRM: "Payment done, your booking now confirm",
 
 }
@@ -21,6 +20,8 @@ const SUCCESS_MSG = {
 const ERROR_MSG = {
 
     INVALID_USER_CREDENTIALS: "User Email and password are wrong",
+
+    JWT_KEY_MISSING: "JWT screte key is missing",
 
     TOKEN_NOT_FOUND: "Token not found",
     TOKEN_IS_INVALID: "Token is invalid",
@@ -57,8 +58,10 @@ const STATUS_CODE = {
 
     BAD_REQUEST: 400,
     UNAUTHORIZED: 401,
+    FORBIDDEN: 403,
     NOT_FOUND: 404,
 
+    SERVER_ERROR: 500,
 }
 
 export {
